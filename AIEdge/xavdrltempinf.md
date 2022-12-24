@@ -1,4 +1,4 @@
-# NVidia Xavier NX Temp Warning using LED using Deep RL - Online Learning/Training
+# NVidia Xavier NX Temp Warning using LED using Deep RL - Inferencing
 
 ## Monitor Temperature and glow LED if temp is too high
 
@@ -56,11 +56,10 @@ import tensorflow as tf
 
 12. No errors with tensorflow 2.10, then proceed with the code
 13. Let's create custom environment for temperature control
-14. Then we create the Deep learning neural network architecture
-15. Custom environment will be the new Reinforcement Learning environment for temperature control
-16. Conditions = if greater than 40 degree C then turn on LED
-17. other wise switch off LED
-18. Here is the entire python code to run in AI Edge compute ie NVidia Xavier NX
+14. we are going to use the existing weights saved from the training code - https://github.com/balakreshnan/Samples2023/blob/main/AIEdge/xavdrltemp.md
+15. idea here is save the weights and load the model with inferencing
+16. Also need to create a model and also custom environment for the Reinforcement learning
+17. Here is the code
 
 ```
 import numpy as np
@@ -82,7 +81,13 @@ import numpy as np
 from jtop import jtop
 import RPi.GPIO as GPIO
 import time
+import tensorflow as tf
+from tensorflow import keras
 
+
+output_dir = "model_output/cabintemp/"
+#https://www.tensorflow.org/agents/tutorials/10_checkpointer_policysaver_tutorial
+#https://www.tensorflow.org/guide/keras/save_and_serialize
 
 class CabinSimulatorEnv(gym.Env):
     metadata = {'render.modes': ['human']}
@@ -164,28 +169,6 @@ class CabinSimulatorEnv(gym.Env):
 
     def close(self):
         pass
- 
-env = CabinSimulatorEnv()
-
-aggr_ep = { 'obs': [], 'reward': [], 'step': [], 'cabintemp': []}
-
-import random
-
-aggr_ep = { 'obs': [], 'reward': [], 'step': [], 'cabintemp': []}
-
-env = CabinSimulatorEnv()
-state_size = env.observation_space.shape[0]
-action_size = env.action_space.n
-obs = env.reset()
-env.render()
-
-cabintemp = random.randrange(50, 80, 3)
-outsidetemp = random.randrange(10, 110, 3)
-outlettemp = random.randrange(50, 90, 3)
-surfacetemp = random.randrange(50, 100, 3)
-
-# Pin Definitions
-output_pin = 29  # BCM pin 18, BOARD pin 12
 
 batch_size = 32
 n_episodes = 100
@@ -244,14 +227,23 @@ class DQNAgent:
         
     def get_qs(self, state, step):
         return self.model_predict(np.array(state).reshape(-1, *state.shape/255([0])))
- 
-def getcurrentstatus():
-    cabintemp = random.randrange(50, 80, 3)
-    outsidetemp = random.randrange(10, 110, 3)
-    outlettemp = random.randrange(50, 90, 3)
-    surfacetemp = random.randrange(50, 100, 3)
 
-    return cabintemp , outsidetemp, surfacetemp,outlettemp
+env = CabinSimulatorEnv()
+state_size = env.observation_space.shape[0]
+action_size = env.action_space.n
+learning_rate = 0.001
+# Pin Definitions
+output_pin = 29  # BCM pin 18, BOARD pin 12
+
+def create_model():
+    model = Sequential() 
+    model.add(Dense(32, activation="relu",
+                    input_dim=state_size))
+    model.add(Dense(32, activation="relu"))
+    model.add(Dense(action_size, activation="linear"))
+    model.compile(loss="mse",
+                  optimizer=Adam(lr=learning_rate))
+    return model
 
 def main():
     agent = DQNAgent(state_size, action_size)
@@ -261,66 +253,66 @@ def main():
     print(' GPIO info ', GPIO.VERSION)
     curr_value = GPIO.LOW
     state = 0
-    for e in range(n_episodes):
-        state = env.reset()
-        state = np.reshape(state, [1, state_size])
+    #converter = tf.lite.TFLiteConverter.from_saved_model(policy_dir, signature_keys=["action"])
+    #tflite_policy = converter.convert()
+    #with open(os.path.join(output_dir, 'policy.tflite'), 'wb') as f:
+    #  f.write(tflite_policy)
+    # It can be used to reconstruct the model identically.
+    #env = CabinSimulatorEnv()
+    #state_size = env.observation_space.shape[0]
+    #action_size = env.action_space.n
+    #learning_rate = 0.001
+    #reconstructed_model = DQNAgent(state_size, action_size)
+    #reconstructed_model = keras.models.load_model("model_output/cabintemp/weights_0050.hdf5")
+    #reconstructed_model = reconstructed_model._build_model.load_weights(output_dir)
+    action = agent.act(state)
+    #cabintemp = random.randrange(50, 80, 3)
+    cabintemp = 0
+    outsidetemp = random.randrange(10, 110, 3)
+    outlettemp = random.randrange(50, 90, 3)
+    surfacetemp = random.randrange(50, 100, 3)
+    with jtop() as jetson:
+        xavier_nx = jetson.stats
+        GPU_temperature = xavier_nx['Temp GPU']
+        CPU_temperature = xavier_nx['Temp CPU']
+        Thermal_temperature = xavier_nx['Temp thermal']
+        cabintemp = GPU_temperature
+        # print(env)
+        # obs, reward, done, info = env.step(cabintemp , outsidetemp, surfacetemp,outlettemp)
+    next_state, reward, done, _ = env.step(cabintemp , outsidetemp, surfacetemp,outlettemp)
+    #print(next_state)
+    reward = reward if not done else 0
+    next_state = np.reshape(next_state, [1, state_size]) 
+    agent.remember(state, action, reward, next_state, done)
+    state = next_state
+    model = create_model()
+    model.load_weights(os.path.join(output_dir, 'weights_0050.hdf5'))
+    #print(model.summary())
+    #print('Model Shape: ', model.get_config())
+    #state = [0]
+    y_pred = model.predict(state)
+    print('Model Predict: ', y_pred[0][0])
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    #score = model.evaluate(state, y_pred[0][0], verbose=0)
+    #print ("%s: %.2f%%" % (model.metrics_names[1], score[1]*100))
+    if next_state[0] >= 1:
+        curr_value = GPIO.HIGH
+        GPIO.output(output_pin, curr_value)
+    else:
+        curr_value = GPIO.LOW
+        GPIO.output(output_pin, curr_value)
 
-        done = False 
-        
-        time = 0
-        while not done:
-            #env.render()
-            action = agent.act(state)
-            #cabintemp = random.randrange(50, 80, 3)
-            cabintemp = 0
-            outsidetemp = random.randrange(10, 110, 3)
-            outlettemp = random.randrange(50, 90, 3)
-            surfacetemp = random.randrange(50, 100, 3)
-            with jtop() as jetson:
-                xavier_nx = jetson.stats
-                GPU_temperature = xavier_nx['Temp GPU']
-                CPU_temperature = xavier_nx['Temp CPU']
-                Thermal_temperature = xavier_nx['Temp thermal']
-                cabintemp = GPU_temperature
-            # print(env)
-            # obs, reward, done, info = env.step(cabintemp , outsidetemp, surfacetemp,outlettemp)
-            next_state, reward, done, _ = env.step(cabintemp , outsidetemp, surfacetemp,outlettemp)
-            #print(next_state)
-            reward = reward if not done else 0
-            next_state = np.reshape(next_state, [1, state_size]) 
-            agent.remember(state, action, reward, next_state, done)
-            state = next_state
-            done = True
-            if done:
-                print("episode: {}/{}, score: {}, e: {:.2}, reward: {}, state: {}"
-                .format(e, n_episodes-1, time, agent.epsilon, reward, next_state[0]))
-            time += 1
-            if next_state[0] >= 1:
-                curr_value = GPIO.HIGH
-                GPIO.output(output_pin, curr_value)
-            else:
-                curr_value = GPIO.LOW
-                GPIO.output(output_pin, curr_value)
-        if len(agent.memory) > batch_size:
-            agent.train(batch_size) 
-        if e % 50 == 0:
-            agent.save(output_dir + "weights_"
-                + "{:04d}".format(e) + ".hdf5")
+
+    #import numpy as np
+    #interpreter = tf.lite.Interpreter(os.path.join(output_dir, 'policy.tflite'))
+
+    #policy_runner = interpreter.get_signature_runner()
+    #print(policy_runner._inputs)
 
 if __name__ == "__main__":
    main()
 ```
 
-19. Save the python file as rltemp1.py
-20. Run the code21. 
-22. use elevated mode to run the code to grab temperature information
-
-```
-sudo python3 rltemp1.py
-```
-
-23. Ignore the warning for now
-24. Code should run episodes and print out the temperature information
-25. Check the temperature LED glow when the NVIDIA Xavier NX board gets hot
-26. Run the Active Training going
-27. My sample code runs for 100 episodes
+18. Run the code
+19. Make sure output directory is set to where the weights are
+20. Provide the weights file
