@@ -348,3 +348,6 @@ def plot_durations(show_result=False):
             display.display(plt.gcf())
 ```
 
+- Now run episode
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/pytorchrl1.jpg "Output Episodes")
