@@ -85,3 +85,4 @@ It will likely require a combination of these and other approaches to effectivel
 - This could be a personal knowledge bot for individuals to learn. Like a Knowledge System.
 - Do we need Books?
 - If ChatGPT can also delivery videos, it might be complete.
+- Will be awesome if we can combine social media platforms to share learning between each other.
