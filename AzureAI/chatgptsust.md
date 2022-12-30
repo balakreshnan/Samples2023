@@ -1,4 +1,4 @@
-# Chat GPT View on Global Warning
+# Chat GPT View on Global Warning as Personal Knowledge Assistant
 
 ## Curious to learn what chatGPT thinks about Global Waning
 
