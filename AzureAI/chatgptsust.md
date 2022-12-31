@@ -12,7 +12,7 @@
 ## Learn about Global warming
 
 - Question:
-- What is happening with Global Warning
+- What is happening with Global Warming
 
 - Answer:
 
