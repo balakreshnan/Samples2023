@@ -1,6 +1,6 @@
-# Chat GPT View on Global Warning as Personal Knowledge Assistant
+# Chat GPT View on Global Warming as Personal Knowledge Assistant
 
-## Curious to learn what chatGPT thinks about Global Waning
+## Curious to learn what chatGPT thinks about Global Warming
 
 ## Setup
 
