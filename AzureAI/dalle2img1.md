@@ -6,6 +6,8 @@
 
 - Get an dall-e open ai account
 - Try to create images based on text
+- Dall E URL - https://openai.com/dall-e-2/
+- Stable Diffusion URL - https://huggingface.co/spaces/stabilityai/stable-diffusion
 
 ## Example 1
 
