@@ -1,4 +1,4 @@
-# Predictive Maintenance - Responsible AI on NASA Turbofan Engine Degradation Dataset - Using AutoML
+# Predictive Maintenance - Responsible AI on NASA Turbofan Engine Degradation Dataset - Using sklearn
 
 ## End to End Train model and perform Responsible AI on NASA Turbofan Engine Degradation Dataset
 
@@ -9,7 +9,7 @@
 - Get the best run model and perform responsible AI on the model.
 - download data from - https://data.nasa.gov/Aerospace/CMAPSS-Jet-Engine-Simulated-Data/ff5v-kuh6
 - Kaggle link - https://www.kaggle.com/datasets/behrad3d/nasa-cmaps
-- Using Azure Machine learning SDK v2 AutoML to train the model
+- using sci-kit learn for training the model
 
 ## Data Engineering Code
 
@@ -287,13 +287,11 @@ try:
 except Exception as ex:
     print(ex)
     # Enter details of your AzureML workspace
-    subscription_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    subscription_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxx"
     resource_group = "rgname"
-    workspace = "amlwkspacename"
+    workspace = "azuremlworkspace"
     ml_client = MLClient(credential, subscription_id, resource_group, workspace)
 ```
-
-- Display the workspace
 
 ```
 workspace = ml_client.workspaces.get(name=ml_client.workspace_name)
@@ -310,65 +308,35 @@ output["Location"] = workspace.location
 output
 ```
 
-- Now save the output for traning
-- Create 2 folders called train and test
-- Create a MLTable file in each folder
-
-- MLTable in train
-  
-```
-# MLTable definition file
-
-paths:
-  - file: ./train_set.csv
-transformations:
-  - read_delimited:
-        delimiter: ','
-        encoding: 'ascii'
-
-- MLTable in test
+- Create mltable based Table dataset to be used for both Training and RAI
 
 ```
-# MLTable definition file
+from azure.ai.ml.entities import Data
+from azure.ai.ml.constants import AssetTypes
 
-paths:
-  - file: ./test_set.csv
-transformations:
-  - read_delimited:
-        delimiter: ','
-        encoding: 'ascii'
-```
-
-- Now lets save the train and test csv files
-
-```
-train_set.to_csv("train/train_set.csv",index=False, header=True)
-```
-
-```
-train_set.to_csv("test/test_set.csv",index=False, header=True)
-```
-
-- Now create dataset definition for automl training
-
-```
 my_training_data_input = Input(
-    type=AssetTypes.MLTABLE, path="./train/"
+    type=AssetTypes.MLTABLE, path="./train/",
+    description="Dataset for NASA Turbofan Training",
+    tags={"source_type": "web", "source": "Kaggle ML Repo"},
+    version="1.0.0",
 )
 my_training_data_test = Input(
-    type=AssetTypes.MLTABLE, path="./test/"
+    type=AssetTypes.MLTABLE, path="./test/",
+    description="Dataset for NASA Turbofan Testing",
+    tags={"source_type": "web", "source": "Kaggle ML Repo"},
+    version="1.0.0",
 )
 ```
 
-- Set the version string 
+- Configure version numbers
 
 ```
 rai_titanic_example_version_string = "1"
 ```
 
-- Now create a dataset and register in the workspace UI
+- Create data if it doesn't exist
 
-``` 
+```
 from azure.ai.ml.entities import Data
 from azure.ai.ml.constants import AssetTypes
 
@@ -381,245 +349,381 @@ input_test_data = "nasaturbofan_test_csv"
 
 try:
     # Try getting data already registered in workspace
-    train_data = ml_client.data.get(
+    my_training_data_input = ml_client.data.get(
         name=input_train_data, version=rai_titanic_example_version_string
     )
-    test_data = ml_client.data.get(
+    my_training_data_test = ml_client.data.get(
         name=input_test_data, version=rai_titanic_example_version_string
     )
 except Exception as e:
-    train_data = Data(
+    my_training_data_input = Data(
         path="./train/",
         type=AssetTypes.MLTABLE,
         description="RAI NASA Turbofan training data",
         name=input_train_data,
         version=rai_titanic_example_version_string,
     )
-    ml_client.data.create_or_update(train_data)
+    ml_client.data.create_or_update(my_training_data_input)
 
-    test_data = Data(
+    my_training_data_test = Data(
         path="./test/",
         type=AssetTypes.MLTABLE,
         description="RAI NASA turbofan test data",
         name=input_test_data,
         version=rai_titanic_example_version_string,
     )
-    ml_client.data.create_or_update(test_data)
+    ml_client.data.create_or_update(my_training_data_test)
 ```
 
-- Setup job parameters
-
-```
-# General job parameters
-compute_name = "cpu-cluster"
-max_trials = 5
-exp_name = "automlv2-NASATurbofan-experiment"
-```
-
-- Setup the automl job
-
-```
-classification_job = automl.classification(
-    compute=compute_name,
-    experiment_name=exp_name,
-    training_data=my_training_data_input,
-    target_column_name="broken",
-    primary_metric="accuracy",
-    n_cross_validations=5,
-    enable_model_explainability=True,
-    tags={"my_custom_tag": "NASA Turbofan Training"},
-)
-
-# Limits are all optional
-classification_job.set_limits(
-    timeout_minutes=600,
-    trial_timeout_minutes=20,
-    max_trials=max_trials,
-    # max_concurrent_trials = 4,
-    # max_cores_per_trial: -1,
-    enable_early_termination=True,
-)
-
-# Training properties are optional
-classification_job.set_training(
-    blocked_training_algorithms=[ClassificationModels.LOGISTIC_REGRESSION],
-    enable_onnx_compatible_models=True,
-)
-```
-
-- Submit the job
-
-```
-# Submit the AutoML job
-returned_job = ml_client.jobs.create_or_update(
-    classification_job
-)  # submit the job to the backend
-
-print(f"Created job: {returned_job}")
-```
-
-- Now lets check the status of the job
-
-```
-ml_client.jobs.stream(returned_job.name)
-```
-
-- now load mlflow URI
-
-```
-import mlflow
-
-# Obtain the tracking URL from MLClient
-MLFLOW_TRACKING_URI = ml_client.workspaces.get(
-    name=ml_client.workspace_name
-).mlflow_tracking_uri
-
-print(MLFLOW_TRACKING_URI)
-```
-
-- Set the tracking URI
-
-```
-# Set the MLFLOW TRACKING URI
-
-mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
-
-print("\nCurrent tracking uri: {}".format(mlflow.get_tracking_uri()))
-```
-
-- Invoke MLFlow UI
-
-```
-from mlflow.tracking.client import MlflowClient
-
-# Initialize MLFlow client
-mlflow_client = MlflowClient()
-```
-
-- Get the run information
-
-```
-job_name = returned_job.name
-
-# Example if providing an specific Job name/ID
-# job_name = "b4e95546-0aa1-448e-9ad6-002e3207b4fc"
-
-# Get the parent run
-mlflow_parent_run = mlflow_client.get_run(job_name)
-
-print("Parent Run: ")
-print(mlflow_parent_run)
-```
-
-- Get the best child run
-
-```
-# Get the best model's child run
-
-best_child_run_id = mlflow_parent_run.data.tags["automl_best_child_run_id"]
-print("Found best child run id: ", best_child_run_id)
-
-best_run = mlflow_client.get_run(best_child_run_id)
-
-print("Best child run: ")
-print(best_run)
-```
-
-- print the best run metrics
-
-```
-best_run.data
-```
-
-- get best run run name
-
-```
-print(best_run.data.tags['mlflow.runName'])
-```
-
-- load the best model
-
-```
-from azure.ai.ml.entities import Model
-from azure.ai.ml.constants import AssetTypes
-
-job_name = ""
-
-run_model = Model(
-    path=f"azureml://jobs/{best_run.data.tags['mlflow.rootRunId']}/outputs/artifacts/paths/model/",
-    name="nasaturbofan_version1",
-    description="Model created from run for NASA Turbofan.",
-    type=AssetTypes.MLFLOW_MODEL,
-)
-```
-
-- print the model name
-
-```
-run_model.name
-```
-
-- Register the model
+- Create component directories
 
 ```
 import os
 
-# Create local folder
-local_dir = "./artifact_downloads"
-if not os.path.exists(local_dir):
-    os.mkdir(local_dir)
+train_src_dir = "./components/train"
+os.makedirs(train_src_dir, exist_ok=True)
 ```
 
+- Now lets create the training code and file
+- walk through each line to see how we are using data form mltable
+- Clean up the data
+- then train the model
+- Save the model
+- Register the model
+- Note we only use one SKlearn model
+- Enable mlflow logging
+- RAI Toolbox at the time of implementation only works with sklearn and mlflow enabled training
+
 ```
-# Download run's artifacts/outputs
-local_path = mlflow_client.download_artifacts(
-    best_run.info.run_id, "outputs", local_dir
+%%writefile {train_src_dir}/train.py
+import argparse
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.metrics import classification_report
+import os
+import shutil
+import tempfile
+import pandas as pd
+import mlflow
+import mltable
+import pandas as pd 
+import numpy as np
+
+from sklearn import metrics
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+
+def select_first_file(path):
+    """Selects first file in folder, use under assumption there is only one file in folder
+    Args:
+        path (str): path to directory or file to choose
+    Returns:
+        str: full path of selected file
+    """
+    files = os.listdir(path)
+    return os.path.join(path, files[0])
+
+
+# Start Logging
+mlflow.start_run()
+
+# enable autologging
+mlflow.sklearn.autolog()
+
+os.makedirs("./outputs", exist_ok=True)
+
+
+def main():
+    """Main function of the script."""
+
+    # input and output arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--train_data", type=str, help="path to train data")
+    parser.add_argument("--test_data", type=str, help="path to test data")
+    parser.add_argument("--n_estimators", required=False, default=100, type=int)
+    parser.add_argument("--learning_rate", required=False, default=0.1, type=float)
+    parser.add_argument("--registered_model_name", type=str, help="model name")
+    parser.add_argument("--model", type=str, help="path to model file")
+    args = parser.parse_args()
+    
+    #current_experiment = Run.get_context().experiment
+    #tracking_uri = current_experiment.workspace.get_mlflow_tracking_uri()
+    #print("tracking_uri: {0}".format(tracking_uri))
+    #mlflow.set_tracking_uri(tracking_uri)
+    #mlflow.set_experiment(current_experiment.name)
+
+    # paths are mounted as folder, therefore, we are selecting the file from folder
+    #train_df = pd.read_csv(select_first_file(args.train_data))
+    tbl = mltable.load(args.train_data)
+    train_df = tbl.to_pandas_dataframe()
+    train_df.columns = ['lifetime','broken','unit_number','sensor10_max','sensor10_mean','sensor10_min','sensor10_std','sensor11_max','sensor11_mean','sensor11_min','sensor11_std','sensor12_max','sensor12_mean','sensor12_min','sensor12_std','sensor13_max','sensor13_mean','sensor13_min','sensor13_std','sensor14_max','sensor14_mean','sensor14_min','sensor14_std','sensor15_max','sensor15_mean','sensor15_min','sensor15_std','sensor16_max','sensor16_mean','sensor16_min','sensor16_std','sensor17_max','sensor17_mean','sensor17_min','sensor17_std','sensor18_max','sensor18_mean','sensor18_min','sensor18_std','sensor19_max','sensor19_mean','sensor19_min','sensor19_std','sensor1_max','sensor1_mean','sensor1_min','sensor1_std','sensor20_max','sensor20_mean','sensor20_min','sensor20_std','sensor21_max','sensor21_mean','sensor21_min','sensor21_std','sensor2_max','sensor2_mean','sensor2_min','sensor2_std','sensor3_max','sensor3_mean','sensor3_min','sensor3_std','sensor4_max','sensor4_mean','sensor4_min','sensor4_std','sensor5_max','sensor5_mean','sensor5_min','sensor5_std','sensor6_max','sensor6_mean','sensor6_min','sensor6_std','sensor7_max','sensor7_mean','sensor7_min','sensor7_std','sensor8_max','sensor8_mean','sensor8_min','sensor8_std','sensor9_max','sensor9_mean','sensor9_min','sensor9_std','fold']
+    train_df = train_df.iloc[1: , :]
+    print(train_df.columns)
+    print(train_df.head())
+    train_df.fold.fillna(0, inplace=True)
+
+    # Extracting the label column
+    y_train = train_df.pop("broken")
+
+    # convert the dataframe values to array
+    X_train = train_df.values
+
+    # paths are mounted as folder, therefore, we are selecting the file from folder
+    #test_df = pd.read_csv(select_first_file(args.test_data))
+    tbl = mltable.load(args.test_data)
+    test_df = tbl.to_pandas_dataframe()
+    test_df.columns = ['lifetime','broken','unit_number','sensor10_max','sensor10_mean','sensor10_min','sensor10_std','sensor11_max','sensor11_mean','sensor11_min','sensor11_std','sensor12_max','sensor12_mean','sensor12_min','sensor12_std','sensor13_max','sensor13_mean','sensor13_min','sensor13_std','sensor14_max','sensor14_mean','sensor14_min','sensor14_std','sensor15_max','sensor15_mean','sensor15_min','sensor15_std','sensor16_max','sensor16_mean','sensor16_min','sensor16_std','sensor17_max','sensor17_mean','sensor17_min','sensor17_std','sensor18_max','sensor18_mean','sensor18_min','sensor18_std','sensor19_max','sensor19_mean','sensor19_min','sensor19_std','sensor1_max','sensor1_mean','sensor1_min','sensor1_std','sensor20_max','sensor20_mean','sensor20_min','sensor20_std','sensor21_max','sensor21_mean','sensor21_min','sensor21_std','sensor2_max','sensor2_mean','sensor2_min','sensor2_std','sensor3_max','sensor3_mean','sensor3_min','sensor3_std','sensor4_max','sensor4_mean','sensor4_min','sensor4_std','sensor5_max','sensor5_mean','sensor5_min','sensor5_std','sensor6_max','sensor6_mean','sensor6_min','sensor6_std','sensor7_max','sensor7_mean','sensor7_min','sensor7_std','sensor8_max','sensor8_mean','sensor8_min','sensor8_std','sensor9_max','sensor9_mean','sensor9_min','sensor9_std','fold']
+    test_df = test_df.iloc[1: , :]
+    print(train_df.columns)
+    print(train_df.head())   
+    test_df.fold.fillna(0, inplace=True)
+
+    # Extracting the label column
+    y_test = test_df.pop("broken")
+
+    # convert the dataframe values to array
+    X_test = test_df.values
+
+    print(f"Training with data of shape {X_train.shape}")
+
+    #clf = GradientBoostingClassifier(
+    #    n_estimators=args.n_estimators, learning_rate=args.learning_rate
+    #)
+    #clf.fit(X_train, y_train)
+    print("Training model")
+    model = LogisticRegression()
+    model.fit(X_train, y_train)
+    
+    # Saving model with mlflow - leave this section unchanged
+    with tempfile.TemporaryDirectory() as td:
+        print("Saving model with MLFlow to temporary directory")
+        tmp_output_dir = os.path.join(td, "my_model_dir")
+        mlflow.sklearn.save_model(sk_model=model, path=tmp_output_dir)
+
+        print("Copying MLFlow model to output path")
+        for file_name in os.listdir(tmp_output_dir):
+            print("  Copying: ", file_name)
+            # As of Python 3.8, copytree will acquire dirs_exist_ok as
+            # an option, removing the need for listdir
+            shutil.copy2(src=os.path.join(tmp_output_dir, file_name), dst=os.path.join("./outputs", file_name))
+
+    y_pred = model.predict(X_test)
+
+    print(classification_report(y_test, y_pred))
+
+    # Registering the model to the workspace
+    print("Registering the model via MLFlow")
+    mlflow.sklearn.log_model(
+        sk_model=model,
+        registered_model_name=args.registered_model_name,
+        artifact_path=args.registered_model_name,
+    )
+
+    # Saving the model to a file
+    mlflow.sklearn.save_model(
+        sk_model=model,
+        path=os.path.join(args.model, "trained_model"),
+    )
+
+    # Stop Logging
+    mlflow.end_run()
+
+
+if __name__ == "__main__":
+    main()
+```
+
+- Create the training yaml file
+
+```
+%%writefile {train_src_dir}/train.yml
+# <component>
+name: train_nasaturbofan_defaults_model
+display_name: Train NASA turbofan Defaults Model
+# version: 1 # Not specifying a version will automatically update the version
+type: command
+inputs:
+  train_data: 
+    type: uri_folder
+  test_data: 
+    type: uri_folder
+  learning_rate:
+    type: number     
+  registered_model_name:
+    type: string
+outputs:
+  model:
+    type: uri_folder
+code: .
+environment:
+  # for this step, we'll use an AzureML curate environment
+  azureml://registries/azureml/environments/AzureML-responsibleai-0.20-ubuntu20.04-py38-cpu/versions/4
+  #azureml:AzureML-sklearn-1.0-ubuntu20.04-py38-cpu:1
+  #aml-scikit-learn:0.1.0
+command: >-
+  python train.py 
+  --train_data ${{inputs.train_data}} 
+  --test_data ${{inputs.test_data}} 
+  --learning_rate ${{inputs.learning_rate}}
+  --registered_model_name ${{inputs.registered_model_name}} 
+  --model ${{outputs.model}}
+```
+
+- Load the component
+
+```
+# importing the Component Package
+from azure.ai.ml import load_component
+
+# Loading the component from the yml file
+train_component = load_component(source=os.path.join(train_src_dir, "train.yml"))
+```
+
+- Register the training component
+
+```
+# Now we register the component to the workspace
+train_component = ml_client.create_or_update(train_component)
+
+# Create (register) the component in your workspace
+print(
+    f"Component {train_component.name} with Version {train_component.version} is registered"
 )
-print("Artifacts downloaded in: {}".format(local_path))
-print("Artifacts: {}".format(os.listdir(local_path)))
 ```
 
-```
-os.listdir("./artifact_downloads/outputs/mlflow-model")
-```
-
-- Model name
+- Now create a compute if not exist
+- This code is optional
 
 ```
-expected_model_id = f"nasaturbofan_version1:2"
-modelname = "nasaturbofan_version1"
+from azure.ai.ml.entities import AmlCompute
+
+cpu_compute_target = "cpu-cluster"
+
+try:
+    # let's see if the compute target already exists
+    cpu_cluster = ml_client.compute.get(cpu_compute_target)
+    print(
+        f"You already have a cluster named {cpu_compute_target}, we'll reuse it as is."
+    )
+
+except Exception:
+    print("Creating a new cpu compute target...")
+
+    # Let's create the Azure ML compute object with the intended parameters
+    cpu_cluster = AmlCompute(
+        # Name assigned to the compute cluster
+        name="cpu-cluster",
+        # Azure ML Compute is the on-demand VM service
+        type="amlcompute",
+        # VM Family
+        size="STANDARD_DS3_V2",
+        # Minimum running nodes when there is no job running
+        min_instances=0,
+        # Nodes in cluster
+        max_instances=4,
+        # How many seconds will the node running after the job termination
+        idle_time_before_scale_down=180,
+        # Dedicated or LowPriority. The latter is cheaper but there is a chance of job termination
+        tier="Dedicated",
+    )
+
+    # Now, we pass the object to MLClient's create_or_update method
+    cpu_cluster = ml_client.begin_create_or_update(cpu_cluster)
+
+print(
+    f"AMLCompute with name {cpu_cluster.name} is created, the compute size is {cpu_cluster.size}"
+)
+```
+
+- Now create the RAI Pipeline
+
+```
+from azure.ai.ml import dsl, Input, Output
+
+
+@dsl.pipeline(
+    compute=cpu_compute_target,
+    description="E2E train pipeline",
+)
+def nasaturbofan_defaults_pipeline(
+    pipeline_job_train_data_input,
+    pipeline_job_test_data_input,
+    pipeline_job_test_train_ratio,
+    pipeline_job_learning_rate,
+    pipeline_job_registered_model_name,
+):
+    # using data_prep_function like a python call with its own inputs
+    #data_prep_job = data_prep_component(
+    #    data=pipeline_job_data_input,
+    #    test_train_ratio=pipeline_job_test_train_ratio,
+    #)
+
+    # using train_func like a python call with its own inputs
+    train_job = train_component(
+        train_data=pipeline_job_train_data_input,  # note: using outputs from previous step
+        test_data=pipeline_job_test_data_input,  # note: using outputs from previous step
+        learning_rate=pipeline_job_learning_rate,  # note: using a pipeline input as parameter
+        registered_model_name=pipeline_job_registered_model_name,
+    )
+```
+
+- Setup the pipeline
+
+```
+registered_model_name = "NASAturbofan_defaults_model"
+
+# Let's instantiate the pipeline with the parameters of our choice
+pipeline = nasaturbofan_defaults_pipeline(
+    pipeline_job_train_data_input=Input(type="mltable", path=my_training_data_input.path),
+    pipeline_job_test_data_input=Input(type="mltable", path=my_training_data_test.path),
+    pipeline_job_test_train_ratio=0.25,
+    pipeline_job_learning_rate=0.05,
+    pipeline_job_registered_model_name=registered_model_name,
+)
+```
+
+- Submit the pipeline
+
+```
+import webbrowser
+
+# submit the pipeline job
+pipeline_job = ml_client.jobs.create_or_update(
+    pipeline,
+    # Project's name
+    experiment_name="e22_NASATurbofan_Training_registered_components",
+)
+# open the pipeline in web browser
+webbrowser.open(pipeline_job.studio_url)
+```
+
+- Wait for the pipeline to complete
+
+```
+ml_client.jobs.stream(pipeline_job.name)
+```
+
+## Responsible AI Dashboard - Model Analysis
+
+- Configure model information
+
+```
+expected_model_id = f"NASAturbofan_defaults_model:1"
+modelname = "NASAturbofan_defaults_model"
 azureml_model_id = f"azureml:{expected_model_id}"
 ```
 
-- Register the model
-
-```
-import os
-
-model_local_path = os.path.abspath("./artifact_downloads/outputs/mlflow-model")
-mlflow.register_model(f"file://{model_local_path}", modelname)
-```
-
-```
-import mlflow
-import mlflow.sklearn
-```
-
-## Responsible AI (RAI) and Explainability
-
-- Setup the workspace information
+- Configure Azure machine learning workspace configuration
 
 ```
 # Enter details of your AML workspace
-subscription_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+subscription_id = "xxxxxxxxxxxxxxxxxxxxxxx"
 resource_group = "rgname"
-workspace = "amlwkname"
+workspace = "azuremlwkspace"
 ```
 
-- Load the registry where RAI components are registered
+- load the registry
 
 ```
-# Get handle to azureml registry for the RAI built in components
 registry_name = "azureml"
 #registry_name = "mlopswk"
 ml_client_registry = MLClient(
@@ -631,12 +735,10 @@ ml_client_registry = MLClient(
 print(ml_client_registry)
 ```
 
- - Code for registering in the registry is available here - https://github.com/Azure/azureml-examples/blob/main/sdk/python/responsible-ai/responsibleaidashboard-housing-decision-making/responsibleaidashboard-housing-decision-making.ipynb
- - Now load the RAI components
- - We are calling Dashboard, Score card and Counterfactual components
+- Let's invoke the Resposible AI Components
 
- ```
- label = "latest"
+```
+label = "latest"
 
 rai_constructor_component = ml_client_registry.components.get(
     name="microsoft_azureml_rai_tabular_insight_constructor", label=label, 
@@ -671,7 +773,7 @@ rai_scorecard_component = ml_client_registry.components.get(
 )
 ```
 
-- Setup up score card info
+- Configure score dashbaord information
 
 ```
 import json
@@ -695,22 +797,22 @@ score_card_config_path = Input(
 )
 ```
 
+- Setup target and categorical features
+
+```
+target_column_name = "broken"
+categorical_features = ['sensor14_min', 'sensor13_std', 'sensor15_max', 'sensor6_mean', 'sensor16_std', 'sensor17_max', 'sensor11_std', 'sensor5_min', 'sensor9_min', 'sensor10_min', 'sensor3_mean', 'sensor17_std', 'sensor4_min', 'sensor11_mean', 'sensor6_max', 'sensor3_min', 'sensor12_min', 'sensor14_mean', 'sensor3_std', 'sensor10_mean', 'sensor2_max', 'sensor11_max', 'sensor7_mean', 'unit_number', 'sensor18_std', 'sensor10_max', 'sensor2_min', 'sensor2_mean', 'sensor12_max', 'sensor13_mean', 'sensor19_mean', 'sensor5_max', 'sensor13_max', 'sensor1_mean', 'sensor7_max', 'sensor18_min', 'sensor12_mean', 'sensor11_min', 'sensor15_std', 'sensor8_mean', 'sensor12_std', 'sensor21_max', 'sensor2_std', 'sensor13_min', 'sensor8_std', 'sensor4_max', 'sensor20_min', 'sensor19_max', 'sensor18_mean', 'sensor19_min', 'sensor15_min', 'sensor21_std', 'sensor10_std', 'sensor17_min', 'sensor5_std', 'sensor1_std', 'sensor16_mean', 'sensor4_mean', 'sensor8_min', 'sensor7_min', 'sensor4_std', 'sensor17_mean', 'sensor18_max', 'sensor5_mean', 'sensor15_mean', 'sensor14_std', 'sensor19_std', 'sensor20_std', 'sensor3_max', 'sensor21_min', 'sensor21_mean', 'sensor9_max', 'sensor9_mean', 'sensor16_max', 'sensor1_max', 'sensor6_min', 'sensor8_max', 'lifetime', 'sensor20_max', 'sensor20_mean', 'fold', 'sensor6_std', 'sensor1_min', 'sensor7_std', 'sensor9_std', 'sensor16_min', 'sensor14_max']
+```
+
+- create a mode suffix
+
 ```
 import time
 
 model_name_suffix = int(time.time())
-model_name = "rai_nasaturbofan_classifier"
 ```
 
-- Setup configuration for RAI analysis
-- Set the targe column name and categorical features
-
-```
-target_column_name = "broken"
-categorical_features = []
-```
-
-- Setup Responsible AI pipeline
+- create a pipeline
 
 ```
 import json
@@ -720,7 +822,7 @@ from azure.ai.ml import dsl, Input
 
 classes_in_target = json.dumps(["Less than median", "More than median"])
 treatment_features = json.dumps(
-    ["OverallCond", "OverallQual", "Fireplaces", "GarageCars", "ScreenPorch"]
+    ["sensor14_min", "sensor11_mean", "sensor11_max", "sensor11_min", "sensor11_std"]
 )
 
 
@@ -804,7 +906,7 @@ def rai_classification_pipeline(
     }
 ```
 
-- Setup the pipeline
+- Invoke the pipeline
 
 ```
 import uuid
@@ -818,7 +920,7 @@ insights_pipeline_job = rai_classification_pipeline(
     score_card_config_path=score_card_config_path,
 )
 
-# Set the output path for the dashboard
+# Workaround to enable the download
 rand_path = str(uuid.uuid4())
 insights_pipeline_job.outputs.dashboard = Output(
     path=f"azureml://datastores/workspaceblobstore/paths/{rand_path}/dashboard/",
@@ -837,7 +939,7 @@ insights_pipeline_job.outputs.scorecard = Output(
 )
 ```
 
-- Submit the pipeline
+- submit the pipeline
 
 ```
 nasaturbofanrai_job = ml_client.jobs.create_or_update(insights_pipeline_job)
@@ -845,18 +947,9 @@ nasaturbofanrai_job = ml_client.jobs.create_or_update(insights_pipeline_job)
 print(f"Created job: {nasaturbofanrai_job}")
 ```
 
-- Wait for job to complete
+- wait for the job to complete
 
 ```
 ml_client.jobs.stream(nasaturbofanrai_job.name)
 ```
 
-- Download the dashboard
-
-```
-target_directory = "."
-
-ml_client.jobs.download(
-    nasaturbofanrai_job.name, download_path=target_directory, output_name="scorecard"
-)
-```
