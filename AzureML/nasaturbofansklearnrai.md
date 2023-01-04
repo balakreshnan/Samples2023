@@ -639,6 +639,16 @@ print(
 ```
 from azure.ai.ml import dsl, Input, Output
 
+nasaturbofan_train_csv = Input(
+    type="mltable",
+    path=f"azureml:{input_train_data}:{rai_titanic_example_version_string}",
+    mode="download",
+)
+nasaturbofan_test_csv = Input(
+    type="mltable",
+    path=f"azureml:{input_test_data}:{rai_titanic_example_version_string}",
+    mode="download",
+)
 
 @dsl.pipeline(
     compute=cpu_compute_target,
@@ -673,8 +683,8 @@ registered_model_name = "NASAturbofan_defaults_model"
 
 # Let's instantiate the pipeline with the parameters of our choice
 pipeline = nasaturbofan_defaults_pipeline(
-    pipeline_job_train_data_input=Input(type="mltable", path=my_training_data_input.path),
-    pipeline_job_test_data_input=Input(type="mltable", path=my_training_data_test.path),
+    pipeline_job_train_data_input=nasaturbofan_train_csv,
+    pipeline_job_test_data_input=nasaturbofan_test_csv,
     pipeline_job_test_train_ratio=0.25,
     pipeline_job_learning_rate=0.05,
     pipeline_job_registered_model_name=registered_model_name,
@@ -820,7 +830,7 @@ from azure.ai.ml import Input
 from azure.ai.ml.constants import AssetTypes
 from azure.ai.ml import dsl, Input
 
-classes_in_target = json.dumps(["Less than median", "More than median"])
+classes_in_target = json.dumps(["0", "1"])
 treatment_features = json.dumps(
     ["sensor14_min", "sensor11_mean", "sensor11_max", "sensor11_min", "sensor11_std"]
 )
@@ -915,8 +925,8 @@ from azure.ai.ml import Output
 # Pipeline to construct the RAI Insights
 insights_pipeline_job = rai_classification_pipeline(
     target_column_name=target_column_name,
-    train_data=my_training_data_input,
-    test_data=my_training_data_test,
+    train_data=nasaturbofan_train_csv,
+    test_data=nasaturbofan_test_csv,
     score_card_config_path=score_card_config_path,
 )
 
@@ -953,3 +963,12 @@ print(f"Created job: {nasaturbofanrai_job}")
 ml_client.jobs.stream(nasaturbofanrai_job.name)
 ```
 
+- Download the dashboard
+
+```
+target_directory = "."
+
+ml_client.jobs.download(
+    nasaturbofanrai_job.name, download_path=target_directory, output_name="scorecard"
+)
+```
