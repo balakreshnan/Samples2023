@@ -8,6 +8,11 @@
 - AutoML can increase data science process productivity by automating time-consuming, iterative tasks
 - Once the model is developed, we will deploy the model as a web service
 - For deployment we are using Managed Online endpoint, Fully managed service that provides a REST endpoint for scoring
+- We are using AutoMl to train the model
+- Deploy the model using Managed Online endpoint
+- Future article will cover to deploy to IoT Edge
+- AutoML improves productivity by automating time-consuming, iterative tasks
+- Cloud first PaaS approach
 
 ### Prerequisites
 
@@ -451,6 +456,9 @@ ml_client.online_endpoints.invoke(
     request_file="sample-nasaturbofan-data.json",
 )
 ```
+
+- output of the sample data below will be 1
+- Entire JSON sample file is provided below in the article
 
 - get URI data
 
