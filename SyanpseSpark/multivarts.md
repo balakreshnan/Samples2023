@@ -226,7 +226,7 @@ plt.plot(
     rdf["timestamp"],
     rdf["sensor_1"],
     color="tab:orange",
-    line,
+    #line,
     linewidth=2,
     label="sensor_1",
 )
@@ -234,7 +234,7 @@ plt.plot(
     rdf["timestamp"],
     rdf["sensor_2"],
     color="tab:green",
-    line,
+    #line,
     linewidth=2,
     label="sensor_2",
 )
@@ -242,7 +242,7 @@ plt.plot(
     rdf["timestamp"],
     rdf["sensor_3"],
     color="tab:blue",
-    line,
+    #line,
     linewidth=2,
     label="sensor_3",
 )
@@ -267,7 +267,7 @@ plt.plot(
     rdf["timestamp"],
     rdf["severity"],
     color="black",
-    line,
+    #line,
     linewidth=2,
     label="Severity score",
 )
@@ -275,7 +275,7 @@ plt.plot(
     rdf["timestamp"],
     [minSeverity] * len(rdf["severity"]),
     color="red",
-    line,
+    #line,
     linewidth=1,
     label="minSeverity",
 )
@@ -313,6 +313,7 @@ plt.ylim([0, 1])
 plt.title("The contribution of each sensor to the detected anomaly")
 plt.show()
 ```
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/multivarts5.jpg "Output Episodes")
 
 - clean up
 
