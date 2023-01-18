@@ -126,7 +126,7 @@ df = (
 df.show(5)
 ```
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/multivarts1.jpg "Output Episodes")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/multivarts1.jpg "Output Episodes")
 
 - Set the MultivariateAnomalyDetector parameters and Estimators
 
@@ -174,7 +174,7 @@ result = (
 result.show(5)
 ```
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/multivarts2.jpg "Output Episodes")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/multivarts2.jpg "Output Episodes")
 
 ```
 rdf = (
@@ -193,7 +193,7 @@ rdf = (
 rdf
 ```
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/multivarts3.jpg "Output Episodes")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/multivarts3.jpg "Output Episodes")
 
 - parse the output
 
@@ -212,7 +212,7 @@ rdf = pd.concat(
 rdf
 ```
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/multivarts4.jpg "Output Episodes")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/multivarts4.jpg "Output Episodes")
 
 - plot the output
 
