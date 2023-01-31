@@ -26,9 +26,9 @@
 - Try with Data flow first and then Synapse Spark
 - Finally use Spark ML to do modelling with aggregated data
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe1.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe1.jpg "Architecture")
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe2.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe2.jpg "Architecture")
 
 ## Data Flow
 
@@ -36,47 +36,47 @@
 - Connect to the storage account and select the parquet files for Customers, orders and Lineitems
 - Here is the end to end flow
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe3.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe3.jpg "Architecture")
 
 - Customers
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe4.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe4.jpg "Architecture")
 
 - Orders
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe5.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe5.jpg "Architecture")
 
 - Lineitems
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe6.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe6.jpg "Architecture")
 
 - let's now join orders with line item
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe7.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe7.jpg "Architecture")
 
 - now create year, month and day columns
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe8.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe8.jpg "Architecture")
 
 - Now join with orders to get order details
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe9.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe9.jpg "Architecture")
 
 - Now aggregate the data by year, month and day
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe10.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe10.jpg "Architecture")
 
 - Calculate aggregates
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe11.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe11.jpg "Architecture")
 
 - finally sink into ADLS as parquet
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe12.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe12.jpg "Architecture")
 
 - now set the partition
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe13.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe13.jpg "Architecture")
 
 ## Next to Syanpse Spark Code
 
@@ -84,7 +84,7 @@
 - Create a spark cluster with spark version 3.2
 - Choose Extra large 5 nodes
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe14.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe14.jpg "Architecture")
 
 - now time to code
 - Let's bring libraries
@@ -264,25 +264,25 @@ trainingSummary.residuals.show()
 - First bring data flow
 - Runtime configuration
 - 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe15.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe15.jpg "Architecture")
 
 - Now configure dataflow
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe16.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe16.jpg "Architecture")
 
 - Next bring in synapse spark for Syanpse spark aggregation
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe17.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe17.jpg "Architecture")
 
 - Next bring synapse spark for ML training
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe18.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe18.jpg "Architecture")
 
 - Save the pipeline and publish
 - Now run the end to end pipeline
 - 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe19.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe19.jpg "Architecture")
 
 - Now show the lineage
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SynapseSpark/images/tpchetoe20.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/SyanpseSpark/images/tpchetoe20.jpg "Architecture")
