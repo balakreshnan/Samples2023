@@ -156,6 +156,8 @@ def processsummary(s):
             #finaltext = buildchunks(summarttext,n)
             finaltext = getsummary(summarytext2)
             summarytext = finaltext
+        else:
+            summarytext = summarytext
     else:
         summarytext = strlines
     
