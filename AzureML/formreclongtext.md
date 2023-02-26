@@ -156,6 +156,28 @@ def buildchunks(nums, n):
     return strlines
 ```
 
+- cleanup functions
+
+```
+### Define function
+def remove_special_characters(df_column,bad_characters_list):
+    clean_df_column = df_column
+    for bad_char in bad_characters_list:
+        clean_df_column = clean_df_column.str.replace(bad_char,' ')
+        print("row changes in column " + str(df_column.name) + " after removing character " + str(bad_char) + ": " ,sum(df_column!=clean_df_column))
+    clean_df_column = clean_df_column.str.title()
+    return clean_df_column
+
+def remote_non_utf8(name):
+     return re.sub(r'[^\x00-\x7f]',r' ',name)
+
+### Define function
+def remove_consecutive_spaces(df_column):
+    clean_df_column = df_column.replace('\s\s+', ' ', regex=True)
+    print("row changes in column " + str(df_column.name) +": " ,sum(df_column!=clean_df_column))
+    return clean_df_column
+```
+
 - Build summary
 
 ```
@@ -163,6 +185,7 @@ def processsummary(s):
     n = 4000
     summarytext = ""
     strlines = buildchunks(s,n)
+    print('length ', len(strlines))
     if(len(strlines) > 1):
         summarytext = ""
         for line in strlines:
@@ -180,6 +203,8 @@ def processsummary(s):
             summarytext = summarytext
     else:
         summarytext = strlines
+        
+    print('summarttext ', summarytext)
     
     return summarytext
 ```
@@ -194,6 +219,29 @@ df1 = df.copy()
 
 ```
 df1['summary'] = df1["text"].apply(lambda x : processsummary(x))
+```
+
+- clear non utf8 characters
+
+```
+df1['summary'] = df1['summary'].apply(remote_non_utf8)
+```
+
+- clear special characters
+
+```
+### Run function
+bad_chars_lst = ["*","!","?", "(", ")", "-", "_", ",", "\n", "\\r\\n", "\r"]
+df1['summary'] = remove_special_characters(df1['summary'],bad_chars_lst)
+df1['text'] = remove_special_characters(df1['text'],bad_chars_lst)
+display(df1[["summary"]].head(20))
+```
+
+- Remove consecutive spaces
+
+```
+df1['text'] = remove_consecutive_spaces(df1['text'])
+df1['summary'] = remove_consecutive_spaces(df1['summary'])
 ```
 
 - Let's see the dataframe
