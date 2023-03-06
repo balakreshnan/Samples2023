@@ -43,7 +43,7 @@ https://api.openai.com/v1/images/generations
 - Need headers for Authentication and Content-Type
 
 ```
-Bearer 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
+Bearer xxxxxxxxxxxxxxxxxxxxxxxxxx
 Content-Type: application/json
 ```
 
