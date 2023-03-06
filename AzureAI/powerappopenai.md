@@ -189,6 +189,7 @@ Note: this process can be applied to any HTTP REST enabled actions needed to be 
 - Bring Text Input Box
 - Add default text as prompt
 - Set the default to a variable called: openaitext
+- Fill background with color: RGBA(241, 244, 249, 1)
 
 ```
 openaitext
