@@ -125,6 +125,14 @@ Content-Type: application/json
 Set(imageurl,dalleapi.Run(TextInput2.Text))
 ```
 
+- Now create an image control to display the image
+
+```
+Concatenate("<img src='", imageurl.url , "' style='width:400px;height:400px;'></img>")
+```
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/dalle10.jpg "Architecture")
+
 - Final output
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/dalle2.jpg "Architecture")
