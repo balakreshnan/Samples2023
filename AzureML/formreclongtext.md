@@ -242,7 +242,7 @@ display(df1[["summary"]].head(20))
 ```
 df1['text'] = remove_consecutive_spaces(df1['text'])
 df1['summary'] = remove_consecutive_spaces(df1['summary'])
-```
+``
 
 - Let's see the dataframe
 
