@@ -81,7 +81,7 @@ print(df)
 df1.head()
 ```
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/images/survey1.jpg "Output Episodes")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/survey1.jpg "Output Episodes")
 
 - now do a count
 
@@ -192,7 +192,7 @@ dffinal.columns
 display(df2)
 ```
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/images/survey2.jpg "Output Episodes")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/survey2.jpg "Output Episodes")
 
 - Process dataframe 20 at a time ,we have about 4000 rows
 
@@ -233,4 +233,4 @@ pd.set_option('display.max_colwidth', None)
 display(df3)
 ```
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/images/survey3.jpg "Output Episodes")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/survey3.jpg "Output Episodes")
