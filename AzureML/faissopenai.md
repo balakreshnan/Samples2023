@@ -117,7 +117,7 @@ text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
 #docs = text_splitter.split_documents(documents)
 docs = str(text_splitter.split_documents(documents))
 
-embeddings = OpenAIEmbeddings(openai_api_key="1edabd5653ab4023984cbaa186fb55a0", chunk_size=1000)
+embeddings = OpenAIEmbeddings(openai_api_key="xxxxxx", chunk_size=1000)
 print(embeddings.json)
 ```
 
