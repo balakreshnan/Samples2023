@@ -1,6 +1,6 @@
-# Azure Open AI with Power Apps
+# Azure Open AI ChatGPT with Power Apps
 
-## Let's build a Power App to use Azure Open AI for various use cases
+## Let's build a Power App to use Azure Open AI ChatGPT for various use cases
 
 ## What's needed
 
