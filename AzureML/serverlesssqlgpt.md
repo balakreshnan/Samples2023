@@ -113,6 +113,16 @@ db = SQLDatabase.from_uri("mssql+pymssql://user:password@ondemandname.sql.azures
 toolkit = SQLDatabaseToolkit(db=db)
 ```
 
+- create the agent
+
+```
+agent_executor = create_sql_agent(
+    llm=llm,
+    toolkit=toolkit,
+    verbose=True
+)
+```
+
 - Create the agent to run queries
 
 ```
