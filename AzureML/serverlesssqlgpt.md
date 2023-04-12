@@ -51,7 +51,7 @@ CREATE EXTERNAL TABLE custviewaggrmonth ( [month] INT,
     [Ttax] DECIMAL(10,2),
     [Titem] INT,
     [Textprice] DECIMAL(19, 2))
-WITH ( LOCATION = '/**',
+WITH ( LOCATION = '/*/*.parquet',
        DATA_SOURCE = [tpch2],
        FILE_FORMAT = [SynapseParquetFormat] )
 ```
