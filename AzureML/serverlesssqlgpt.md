@@ -6,6 +6,7 @@
 
 - Azure Account
 - Azure synapse analytics
+- Azure machine learning service
 - Azure open ai service
 - langchain 0.0.136 is the version sql works, 0.137 has breaking changes
 
