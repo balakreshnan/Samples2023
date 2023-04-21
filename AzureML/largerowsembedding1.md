@@ -189,9 +189,8 @@ len(df2)
 - send the embedding to cognitive search
 
 ```
-
-url = 'https://vecacctest.search.windows.net/indexes/vecaccindex/docs/index?api-version=2023-07-01-Preview'
-headers = {'api-key' : 'lMoMhGCFH4mAqBVqHsLysvNFJSEpnw5Z3EttlmVIdhAzSeCByQbO', 'Content-Type' : 'application/json'}
+url = 'https://searchsvcname.search.windows.net/indexes/vecaccindex/docs/index?api-version=2023-07-01-Preview'
+headers = {'api-key' : 'xxxxxxxxxxxxxx', 'Content-Type' : 'application/json'}
 
 for id, row in df2.iterrows():
     payload = {
@@ -199,8 +198,7 @@ for id, row in df2.iterrows():
         {
           "id": str(id),
           "title": row['title'],
-          "content": row['content'], #Example InSpec Profile For Azure This example shows the implementation of an InSpec profile for Azure. See https:\\/\\/github.com\\/inspec\\/inspec-azure for details on how to configure credentials for your subscription.\\nCreate a profile $ inspec init profile --platform azure my-profile \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500 InSpec Code Generator \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500 Creating new profile at \\/Users\\/spaterson\\/my-profile \\u2022 Creating directory libraries \\u2022 Creating file README.md \\u2022 Creating directory controls \\u2022 Creating file controls\\/example.rb \\u2022 Creating file inspec.yml \\u2022 Creating file libraries\\/.",
-          "category": "web",
+          "content": row['content'], 
           "titleVector": row['titleVector'],
           "contentVector": row['contentVector'],
           "@search.action": "upload"
