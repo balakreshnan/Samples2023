@@ -156,9 +156,6 @@ final_df['id'] = final_df['id'].apply(str)
 
 ```
 dfj1 = final_df[["id","title", "content", "category", "titleVector", "contentVector", "@search.action"]]
-```
-
-```
 dfj1.dtypes
 ```
 
@@ -170,7 +167,7 @@ final_df.to_csv('eadocembed.csv', header=True, index=False, mode='w')
 
 ```
 import requests
-``
+```
 
 - set authentication for cognitive search
 
@@ -180,9 +177,6 @@ my_headers = {"Content-Type" : "application/json", "api-key" : "xxxxxxxxxxxxxxx"
 
 ```
 df2 = dfj1.copy()
-```
-
-```
 len(df2)
 ```
 
