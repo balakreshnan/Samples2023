@@ -209,3 +209,53 @@ for id, row in df2.iterrows():
 - Output in cog search
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/cogsearch1.jpg "Output Episodes")
+
+## Now search the above content in cog search with vector search
+
+- Search the content in cog search
+- COnfigure the search text
+
+```
+import requests, json
+searchtxt = "what cloud to use for single page web application?"
+```
+
+- Create embeddings
+
+```
+embedding = openai.Embedding.create(input=searchtxt, deployment_id="text-embedding-ada-002")
+```
+
+- Setup the search headers
+
+```
+url = 'https://cogsearchname.search.windows.net/indexes/indexname/docs/search?api-version=2023-07-01-Preview'
+headers = {'api-key' : 'xxxxxxx', 'Content-Type' : 'application/json'}
+```
+
+- Set the search query
+
+```
+payload = {
+    "vector": {
+        "value": embedding['data'][0]['embedding'],
+        "fields": "contentVector",
+        "k": 10
+    },
+    "select": "title, category, content"
+}
+```
+
+```
+response = requests.request('POST', url, headers=headers, data=json.dumps(payload))
+print(response.json())
+```
+
+- Parse output
+
+```
+jsonResponse = response.json()
+#print(jsonResponse["value"])
+for row in jsonResponse["value"]:
+    print('Title: ' + row["title"], 'Content: ' + row["content"], ' SearchScore: ' + str(row["@search.score"]))
+```
