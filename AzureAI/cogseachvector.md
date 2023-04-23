@@ -209,7 +209,7 @@ api-key: <your_api_key>
 - Create a power app
 - Add a input text box
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/vectorsear1.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/vectorsearc1.jpg "Architecture")
 
 - Bring a button to process
 
