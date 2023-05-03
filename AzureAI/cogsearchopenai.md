@@ -217,7 +217,7 @@ api-key: <your_api_key>
 
 ```
 {
-  "prompt": @{concat('Summarize ' , variables('prompttxt'))},
+  "prompt": @{concat('Summarize ' , variables('searchouttxt'))},
   "max_tokens": 500,
   "temperature": 0
 }
