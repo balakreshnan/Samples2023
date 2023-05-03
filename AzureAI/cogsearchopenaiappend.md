@@ -184,7 +184,7 @@ searchouttxt
 - Now parse the output from searchouttxt
 - Use Apply for Each and assign the output from searchouttxt as input
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogsearch16.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogsearch9.jpg "Architecture")
 
 - now join the text for summaization
 
