@@ -224,4 +224,4 @@ Set(messagevar,vectorsearch.Run(TextInput14.Text));
 messagevar.searchoutput
 ```
   
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/vectorsear2.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/vectorsear1.jpg "Architecture")
