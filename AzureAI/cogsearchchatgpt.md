@@ -30,11 +30,11 @@
 - Now we need to add a trigger as Power Apps
 - Now initialize a variable caleed searchtxt
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogse4.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogsea4.jpg "Architecture")
 
 - Now bring parse JSON
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogse5.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogsea5.jpg "Architecture")
 
 - here is the schema
 
@@ -61,16 +61,16 @@
 
 - Now parse the output and save to output
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogse6.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogsea6.jpg "Architecture")
 
 - now use the output to get search keyword
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogse8.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogsea8.jpg "Architecture")
 
 - Send to chatgpt to get keywork
 - Use HTTP action
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogse9.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogsea9.jpg "Architecture")
 
 - use post
 - Here is the url
@@ -98,7 +98,7 @@ api-key: <your_api_key>
 
 - Now parse the output and create search keyword
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogse10.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogsea10.jpg "Architecture")
 
 - Here is the schema
 
@@ -168,7 +168,7 @@ api-key: <your_api_key>
 
 - Now parse the information and save to variable to send to search
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogse11.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogsea11.jpg "Architecture")
 
 - Call the Cognitive Search API to get the results
 
