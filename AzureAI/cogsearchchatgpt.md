@@ -172,7 +172,7 @@ api-key: <your_api_key>
 
 - Call the Cognitive Search API to get the results
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogserchatgpt4.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogsea12.jpg "Architecture")
 
 - Set the URL as below
 
