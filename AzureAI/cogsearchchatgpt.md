@@ -23,13 +23,152 @@
 - Name it as cogsearchsummarychatgpt
 - here is the entire flow
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogserchatgpt1.jpg "Architecture")
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogserchatgpt2.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogsea1.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogsea2.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogsea3.jpg "Architecture")
 
 - Now we need to add a trigger as Power Apps
 - Now initialize a variable caleed searchtxt
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogserchatgpt3.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogse4.jpg "Architecture")
+
+- Now bring parse JSON
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogse5.jpg "Architecture")
+
+- here is the schema
+
+```
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "content": {
+                "type": "string"
+            },
+            "role": {
+                "type": "string"
+            }
+        },
+        "required": [
+            "content",
+            "role"
+        ]
+    }
+}
+```
+
+- Now parse the output and save to output
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogse6.jpg "Architecture"
+
+- now use the output to get search keyword
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogse8.jpg "Architecture"
+
+- Send to chatgpt to get keywork
+- Use HTTP action
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogse9.jpg "Architecture"
+
+- use post
+- Here is the url
+
+```
+https://aoairesorucename.openai.azure.com/openai/deployments/deploymentname/chat/completions?api-version=2023-03-15-preview
+```
+
+- Set the header as below
+
+```
+content-type:application/json
+api-key: <your_api_key>
+```
+
+- now body
+
+```
+{
+  "messages": @{outputs('Compose_2')},
+  "max_tokens": 1000,
+  "temperature": 0.7
+}
+```
+
+- Now parse the output and create search keyword
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogse10.jpg "Architecture"
+
+- Here is the schema
+
+```
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "object": {
+            "type": "string"
+        },
+        "created": {
+            "type": "integer"
+        },
+        "model": {
+            "type": "string"
+        },
+        "choices": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "index": {
+                        "type": "integer"
+                    },
+                    "finish_reason": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "object",
+                        "properties": {
+                            "role": {
+                                "type": "string"
+                            },
+                            "content": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "required": [
+                    "index",
+                    "finish_reason",
+                    "message"
+                ]
+            }
+        },
+        "usage": {
+            "type": "object",
+            "properties": {
+                "completion_tokens": {
+                    "type": "integer"
+                },
+                "prompt_tokens": {
+                    "type": "integer"
+                },
+                "total_tokens": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
+```
+
+- Now parse the information and save to variable to send to search
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/cogse11.jpg "Architecture"
 
 - Call the Cognitive Search API to get the results
 
@@ -52,7 +191,7 @@ api-key: <your_api_key>
 
 ```
 {
-  "search": @{variables('searchtxt')},
+  "search": @{variables('searchtxt2')},
   "top": 3,
   "queryType": "semantic",
   "semanticConfiguration": "default",
