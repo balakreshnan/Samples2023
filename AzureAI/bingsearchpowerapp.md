@@ -226,6 +226,10 @@ Ocp-Apim-Subscription-Key: <your_api_key>
 body('Parse_JSON')?['webPages']?['value']?[0]?['snippet']
 ```
 
+- I am picking one sample row and then appending others by looping.
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/bingsearch8.jpg "Architecture")
+
 - Now for each the value array and pull all the snippets
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/bingsearch13.jpg "Architecture")
@@ -234,11 +238,6 @@ body('Parse_JSON')?['webPages']?['value']?[0]?['snippet']
 - Loop through the value array
 - Select snippet from the value array
 - Append to string searchouttxt
-
-- i am only picking one row of result. If need more please loop deep links objects and grab the information
-
-
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/bingsearch8.jpg "Architecture")
 
 - Now send it to Azure Open AI api to summarize the text
 - Here is the api
