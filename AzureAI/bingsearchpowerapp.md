@@ -226,6 +226,15 @@ Ocp-Apim-Subscription-Key: <your_api_key>
 body('Parse_JSON')?['webPages']?['value']?[0]?['snippet']
 ```
 
+- Now for each the value array and pull all the snippets
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/bingsearch13.jpg "Architecture")
+
+- Value to select
+- Loop through the value array
+- Select snippet from the value array
+- Append to string searchouttxt
+
 - i am only picking one row of result. If need more please loop deep links objects and grab the information
 
 
