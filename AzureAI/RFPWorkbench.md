@@ -268,6 +268,8 @@ microsoft-power-bi MAJOR PROS: Perfect integration with Microsoft solutions. Eas
 microsoft-power-bi MAJOR CONS: I have trouble connecting it to an analysis cube and making a website version., Some find it too complicated to use and are intimidated by the format. I have not been able to find training for management on how to use a report that someone else with PowerBI skills created., It has lot of learning curve and has very limited support available on internet. Configuration is a hell.\"" }, { \""role\"": \""user\"", \""content \"": \""hi there\"" } ]}"); Collect(convlist1, { role : "system", content: " You are a helpful assistant." }); Set(outvar1, ""); Collect(wordtemplatelitm, [{ templatename : "Task" },{ templatename : "Context" },{ templatename : "Summary" }]);
 ```
 
+- add a button to send the chat to chatgpt
+- Allow the users to ask any question on data
 - Here is the code for button to send to chatgpt to get information
 
 ```
@@ -325,3 +327,4 @@ Patch(convlist1,{content:ThisItem.content},{content:TextInput10.Text})
 ```
 
 - Idea here will be ability to pick the response and edit and then select them to process into Word Template
+- When you select the response it will be added to the gallery and then select the item and create RFP word document
