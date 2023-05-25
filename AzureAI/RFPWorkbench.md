@@ -287,3 +287,38 @@ Collect(convlist1, { role : "user", content: TextInput6.Text } );Set(outputvar1,
 ```
 Set(summarytext6, PopulateWord1.Run(JSON(ForAll(Filter(Gallery2.AllItems, (Checkbox2.Value)), Concatenate(role, "-", content, "-", Checkbox2.Value, "-", Dropdown1.Selected.Value)), JSONFormat.IgnoreUnsupportedTypes & JSONFormat.IgnoreBinaryData)))
 ```
+
+- add a delete X button to delete the chat
+
+```
+Remove(convlist1,ThisItem);
+```
+
+- on the arrow button add this code
+
+```
+Navigate( EditForm )
+```
+
+- Create a new Edit form
+- Create a Edit form
+- Assign the data source to the convlist1
+- Add a data card
+- For Item add
+
+```
+ThisItem.content
+```
+
+- Add a text input
+- assign the text input to the data card
+
+```
+ThisItem.content
+```
+
+- Bring the save button
+
+```
+Patch(convlist1,{content:ThisItem.content},{content:TextInput10.Text})
+```
