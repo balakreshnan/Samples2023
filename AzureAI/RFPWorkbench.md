@@ -312,6 +312,7 @@ ThisItem.content
 
 - Add a text input
 - assign the text input to the data card
+- Make the text box multiline and bigger
 
 ```
 ThisItem.content
