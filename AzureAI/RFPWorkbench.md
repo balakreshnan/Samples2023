@@ -323,3 +323,5 @@ ThisItem.content
 ```
 Patch(convlist1,{content:ThisItem.content},{content:TextInput10.Text})
 ```
+
+- Idea here will be ability to pick the response and edit and then select them to process into Word Template
