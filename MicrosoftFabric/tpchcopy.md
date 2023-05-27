@@ -63,3 +63,14 @@ display(dfcustomer)
 ```
 
 - If you an view the data then we have succesfully copied the data from blob to lake house
+- Customers
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/MicrosoftFabric/Images/tpch8.jpg "Architecture")
+
+- Lineitems
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/MicrosoftFabric/Images/tpch9.jpg "Architecture")
+
+- Orders
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/MicrosoftFabric/Images/tpch10.jpg "Architecture")
