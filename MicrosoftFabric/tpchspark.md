@@ -226,3 +226,5 @@ dfregion = dfregion.withColumn("PS_SUPPKEY",col("PS_SUPPKEY").cast(DecimalType(1
 table_name = "tpchregion"
 dfregion.write.mode("overwrite").format("delta").save(f"abfss://xxxxx@onelakename.dfs.fabric.microsoft.com/xxxxx/Tables/{table_name}")
 ```
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/MicrosoftFabric/Images/tpch17.jpg "Architecture")
