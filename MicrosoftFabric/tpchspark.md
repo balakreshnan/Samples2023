@@ -101,3 +101,128 @@ dforders = dforders.withColumn("O_CUSTKEY",col("O_CUSTKEY").cast(DecimalType(12,
 table_name = "tpchorders"
 dforders.write.mode("overwrite").format("delta").save(f"abfss://xxxx@onelakename.dfs.fabric.microsoft.com/xxxxxxx/Tables/{table_name}")
 ```
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/MicrosoftFabric/Images/tpch16.jpg "Architecture")
+
+- now process the Supplier data
+
+```
+dfsupplier = spark.read.parquet('abfss://xxxx@onelakename.dfs.fabric.microsoft.com/xxxxxx/Files/SUPPLIER')
+display(dfsupplier)
+```
+
+- print schema
+
+```
+dfsupplier.printSchema
+```
+
+```
+dfsupplier = dfsupplier.withColumn("S_SUPPKEY",col("S_SUPPKEY").cast(DecimalType(12,0)))
+```
+
+- write back as delta table
+
+```
+table_name = "tpchsupplier"
+dfsupplier.write.mode("overwrite").format("delta").save(f"abfss://xxxxx@onelakename.dfs.fabric.microsoft.com/xxxxx/Tables/{table_name}")
+```
+
+- now process the nation data
+
+```
+dfnation = spark.read.parquet('abfss://xxxx@onelakename.dfs.fabric.microsoft.com/xxxxxx/Files/NATION')
+display(dfnation)
+```
+
+- print schema
+
+```
+dfnation.printSchema
+```
+
+```
+dfnation = dfnation.withColumn("S_SUPPKEY",col("S_SUPPKEY").cast(DecimalType(12,0)))
+```
+
+- write back as delta table
+
+```
+table_name = "tpchnation"
+dfnation.write.mode("overwrite").format("delta").save(f"abfss://xxxxx@onelakename.dfs.fabric.microsoft.com/xxxxx/Tables/{table_name}")
+```
+
+
+- now process the Part data
+
+```
+dfpart = spark.read.parquet('abfss://xxxx@onelakename.dfs.fabric.microsoft.com/xxxxxx/Files/PART')
+display(dfpart)
+```
+
+- print schema
+
+```
+dfpart.printSchema
+```
+
+```
+dfpart = dfpart.withColumn("P_PARTKEY",col("P_PARTKEY").cast(DecimalType(12,0)))
+```
+
+- write back as delta table
+
+```
+table_name = "tpchpart"
+dfpart.write.mode("overwrite").format("delta").save(f"abfss://xxxxx@onelakename.dfs.fabric.microsoft.com/xxxxx/Tables/{table_name}")
+```
+
+- now process the Part Supplier data
+
+```
+dfpartsupp = spark.read.parquet('abfss://xxxx@onelakename.dfs.fabric.microsoft.com/xxxxxx/Files/PARTSUPP')
+display(dfpartsupp)
+```
+
+- print schema
+
+```
+dfpartsupp.printSchema
+```
+
+```
+dfpartsupp = dfpartsupp.withColumn("PS_PARTKEY",col("PS_PARTKEY").cast(DecimalType(12,0)))
+dfpartsupp = dfpartsupp.withColumn("PS_SUPPKEY",col("PS_SUPPKEY").cast(DecimalType(12,0)))
+```
+
+- write back as delta table
+
+```
+table_name = "tpchpartsupp"
+dfpartsupp.write.mode("overwrite").format("delta").save(f"abfss://xxxxx@onelakename.dfs.fabric.microsoft.com/xxxxx/Tables/{table_name}")
+```
+
+- now process the Region data
+
+```
+dfregion = spark.read.parquet('abfss://xxxx@onelakename.dfs.fabric.microsoft.com/xxxxxx/Files/REGION')
+display(dfregion)
+```
+
+- print schema
+
+```
+dfregion.printSchema
+```
+
+```
+dfregion = dfregion.withColumn("PS_PARTKEY",col("PS_PARTKEY").cast(DecimalType(12,0)))
+dfregion = dfregion.withColumn("PS_SUPPKEY",col("PS_SUPPKEY").cast(DecimalType(12,0)))
+```
+
+- write back as delta table
+
+```
+table_name = "tpchregion"
+dfregion.write.mode("overwrite").format("delta").save(f"abfss://xxxxx@onelakename.dfs.fabric.microsoft.com/xxxxx/Tables/{table_name}")
+```
