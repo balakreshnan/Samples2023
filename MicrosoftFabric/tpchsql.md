@@ -5,7 +5,7 @@
 ### Convert Parquet to Delta tables
 
 - tpchspark.md in this repo will cover the steps to convert parquet to delta tables
-- [links](tpchspark.md)
+- [Spark Parquet to Delta](tpchspark.md)
 - Read the Customer data
 - Right click the files and customer get the full path
 
