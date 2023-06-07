@@ -55,3 +55,42 @@ dfallorder  = dforders.join(dflineitem, dforders.O_ORDERKEY == dflineitem.L_ORDE
 group_cols = ["year", "month", "day"]
 dfallorder.groupBy(group_cols).agg(sum("L_QUANTITY").alias("Qty"), sum("L_TAX").alias("tax"), sum("L_EXTENDEDPRICE").alias("Price")).show(truncate=False)
 ```
+
+- process subset of data
+
+```
+dfallorder1 = dfallorder.head(10000000)
+```
+
+- convert a list to spark dataframe
+
+```
+deptDF = spark.createDataFrame(data=dfallorder1)
+```
+
+- run group by
+
+```
+group_cols = ["year", "month", "day"]
+display(deptDF.groupBy(group_cols).agg(sum("L_QUANTITY").alias("Qty"), sum("L_TAX").alias("tax"), sum("L_EXTENDEDPRICE").alias("Price")))
+```
+
+- to list the files to verify
+
+```
+mssparkutils.fs.ls("abfss://xxxxxxxxxx@msit-onelake.dfs.fabric.microsoft.com/xxxxxxxxxxxxxx/Tables/tpchlineitem")
+```
+
+- to vaccum data
+
+```
+from delta.tables import *
+
+spark.sql("SET spark.databricks.delta.retentionDurationCheck.enabled = false")
+
+deltaTable = DeltaTable.forPath(spark,'abfss://xxxxxx@msit-onelake.dfs.fabric.microsoft.com/xxxx/Tables/tpchlineitem')
+```
+
+```
+deltaTable.vacuum(retentionHours = 10)
+```
