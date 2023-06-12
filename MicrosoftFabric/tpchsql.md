@@ -97,3 +97,22 @@ deltaTable = DeltaTable.forPath(spark,'abfss://xxxxxx@msit-onelake.dfs.fabric.mi
 deltaTable.vacuum(retentionHours = 10)
 ```
 
+- write back to delta
+
+```
+deptDF.groupBy(group_cols).agg(sum("L_QUANTITY").alias("Qty"), sum("L_TAX").alias("tax"), sum("L_EXTENDEDPRICE").alias("Price")).write.format("delta").mode("overwrite").save('abfss://xxx@onelakename.dfs.fabric.microsoft.com/xxxxxx/Tables/tpchaggr1morders')
+```
+
+- now read the data to validate
+
+```
+tpchaggr1morders = spark.read.format("delta").load('abfss://xxxxxx@onelakename.dfs.fabric.microsoft.com/xxxxxxx/Tables/tpchaggr1morders')
+```
+
+- display the aggregated data
+
+```
+display(tpchaggr1morders)
+```
+
+- Done
