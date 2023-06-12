@@ -62,6 +62,8 @@ dfallorder.groupBy(group_cols).agg(sum("L_QUANTITY").alias("Qty"), sum("L_TAX").
 dfallorder1 = dfallorder.head(10000000)
 ```
 
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/MicrosoftFabric/Images/tpch22.jpg "Architecture")
+
 - convert a list to spark dataframe
 
 ```
@@ -94,3 +96,4 @@ deltaTable = DeltaTable.forPath(spark,'abfss://xxxxxx@msit-onelake.dfs.fabric.mi
 ```
 deltaTable.vacuum(retentionHours = 10)
 ```
+
