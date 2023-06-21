@@ -264,7 +264,7 @@ Based on the content provided, the top candidates with environmental experience 
 - create the prompt
 
 ```
-prompttxt1 = "You are an AI Assistant, your job is to answer the question based on what content provided. provide details to your answer. Use the content provided: " + s
+prompttxt1 = "You are an AI Assistant, your job is to answer the question based on what content provided. be polite and be concise as possible. provide details to your answer in bullet point. Use the content provided: " + s
 prompttxt1 += " If you don't know don't make content please respond don't know."
 ```
 
@@ -292,5 +292,11 @@ print(response.choices[0].message.content)
 - output
 
 ```
-I'm sorry, I cannot provide a list of top candidates with environmental experience as I do not have access to that information. However, based on the content provided, some individuals with environmental experience mentioned include Golightly, William D. (Bill) and Almestad, Charles H. (Charlie).
+Based on the provided content, here are some top candidates with environmental experience:
+
+1. Almestad, Charles H. (Charlie): Project manager since 1986 for an environmental cleanup project involving the remedial investigation, evaluation of remedial alternatives, remedial design and implementation of remedial actions relating to six classes of chemicals in soil and/or groundwater in five separate areas of a 17-acre site. Also, provided environmental consulting services to Equity Office Properties (and Spieker Properties) related to hazardous materials in the soil, groundwater or structures at over 50 sites (over 70 projects) in the Northern and Southern California, Oregon, Colorado and Washington.
+
+2. Golightly, William D. (Bill): Feasibility Study Principal engineer responsible for performing feasibility evaluations to facilitate the selection of remedial actions at a former aircraft manufacturing facility in southern California. Oversaw a remedial action work plan implementation during the construction of the new Miller Children's Hospital in Long Beach, CA. Also, served as the Principal-in Charge for Kleinfelder’s $3.5M on-call contract with the San Diego County Regional Airport Authority (SDCRAA) Facilities Development Department.
+
+These candidates have extensive experience in environmental cleanup projects, remedial investigations, feasibility studies, and providing environmental consulting services. They have also worked on projects related to hazardous waste management, groundwater supply and quality assessment, and compliance monitoring.
 ```
