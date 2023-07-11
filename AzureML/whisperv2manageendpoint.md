@@ -34,7 +34,7 @@ def init():
     # It is the path to the model folder (./azureml-models/$MODEL_NAME/$VERSION)
     # Please provide your model's folder name if there is one
     # deserialize the model file back into a sklearn model
-    model_path = os.path.join(os.getenv("AZUREML_MODEL_DIR"), 'vca_whisper.pkl')
+    model_path = os.path.join(os.getenv("AZUREML_MODEL_DIR"), 'temp_whisper.pkl')
 
     model = whisper.load_model("large-v2", download_root=os.getenv("AZUREML_MODEL_DIR"))
     logging.info("Init complete")
@@ -149,7 +149,7 @@ modelwhisper = whisper.load_model("large-v2")
 
 import pickle
 
-pickle.dump(modelwhisper,open('vca_whisper.pkl','wb'))
+pickle.dump(modelwhisper,open('temp_whisper.pkl','wb'))
 ```
 
 - Create a model
@@ -159,9 +159,9 @@ from azure.ai.ml.entities import Model
 from azure.ai.ml.constants import AssetTypes
 
 file_model = Model(
-    path="vca_whisper.pkl",
+    path="temp_whisper.pkl",
     type=AssetTypes.CUSTOM_MODEL,
-    name="vca_whisper",
+    name="temp_whisper",
     description="Model created from Open AI Whispher for speech to text",
 )
 ml_client.models.create_or_update(file_model)
@@ -191,7 +191,7 @@ ml_client.begin_create_or_update(endpoint)
 - get model to deploy
 
 ```
-model_name = "vca_whisper"
+model_name = "temp_whisper"
 custommodel = ml_client.models.get(name=model_name, version="1") 
 print(custommodel.id)
 ```
