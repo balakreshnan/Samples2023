@@ -217,7 +217,7 @@ for id, row in df2.iterrows():
 
 ```
 import requests, json
-searchtxt = "what cloud to use for single page web application?"
+searchtxt = "what is best recommendation for web application?"
 ```
 
 - Create embeddings
