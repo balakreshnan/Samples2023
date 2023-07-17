@@ -74,7 +74,7 @@ messagesDF = spark.read.json("Files/Messages_Large.json")
 display(messagesDF)
 ```
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/MicrosoftFabric/images/pysparkai1.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/MicrosoftFabric/Images/pysparkai1.jpg "Architecture")
 
 - Now lets only get the necessary columns
 - Flattern the internetMessageHheaders
@@ -170,4 +170,4 @@ FROM temp_view_for_transform
 display(ai_df)
 ```
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/MicrosoftFabric/images/pysparkai2.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/MicrosoftFabric/Images/pysparkai2.jpg "Architecture")
