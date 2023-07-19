@@ -132,7 +132,7 @@ db_chain.run("List the tables in the database?")
 db_chain.run("show me top 10 records with total price group by month and day and show me in a table format?")
 ```
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/images/sqldbchain1.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/sqldbchain1.jpg "Architecture")
 
 - top 10 customer key
 
