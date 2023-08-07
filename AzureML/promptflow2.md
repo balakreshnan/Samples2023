@@ -1,4 +1,4 @@
-# Building Large Language Models Applications using Prompt Flow in Azure ML - Simple LLMOps
+# Building Large Language Models Applications using Prompt Flow in Azure ML with Evaluations - LLMOps
 
 ## Introduction
 
