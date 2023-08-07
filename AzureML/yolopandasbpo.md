@@ -199,3 +199,14 @@ pandas_ai(
 ```
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/yolopandas11.jpg "Architecture")
+
+- Now by revenue
+
+```
+pandas_ai(
+    df,
+    "Plot the total client by Revenue?",
+)
+```
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/yolopandas12.jpg "Architecture")
