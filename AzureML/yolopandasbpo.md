@@ -150,3 +150,52 @@ df.llm.query("Chart me total client by Cost?", yolo=True)
 ```
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/yolopandas7.jpg "Architecture")
+
+
+## Pandas AI
+
+- import library
+
+```
+from pandasai import PandasAI
+
+pandas_ai = PandasAI(llm)
+```
+
+- Query
+
+```
+pandas_ai.run(df, prompt='Show me total by clients?')
+```
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/yolopandas8.jpg "Architecture")
+
+- query by periods and client totals
+
+```
+pandas_ai.run(df, prompt='Show me total by clients by Period?')
+```
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/yolopandas9.jpg "Architecture")
+
+- Plot using pandas ai on revenue by client
+
+```
+pandas_ai(
+    df,
+    "Plot the histogram of Cost showing for each client, using different colors for each bar",
+)
+```
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/yolopandas10.jpg "Architecture")
+
+- another plot to match yolopandas
+
+```
+pandas_ai(
+    df,
+    "Plot the total client by Cost?",
+)
+```
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/yolopandas11.jpg "Architecture")
