@@ -216,7 +216,7 @@ def calculate_accuracy(grades: str, variant_ids: List[str]):
 - Wait for the run to complete
 - You will see the graph in the right side
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/promptflowcog19.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/promptflowcog26.jpg "Architecture")
 
 ## Deploy
 
