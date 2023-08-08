@@ -122,6 +122,12 @@ def generate_prompt_context(search_result: List[dict]) -> str:
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/promptflowcog10.jpg "Architecture")
 
 - Now we add evaulation step on the LLM
+- Setup the azure open ai connection
+- select the model deployment to use, i am using chat for gpt 3.5 turbo
+- Set the temperature and max token output
+- Send the output as prompt_text
+- you can change the prompt and run again
+- Try with different variations one shot, few shot examples in prompt
 - Bring python script flow into the graph
 - name it line_process
 - setup the inputs as below image
@@ -155,12 +161,56 @@ def line_process(groundtruth: str, prediction: str):
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/promptflowcog18.jpg "Architecture")
 
-- Setup the azure open ai connection
-- select the model deployment to use, i am using chat for gpt 3.5 turbo
-- Set the temperature and max token output
-- Send the output as prompt_text
-- you can change the prompt and run again
-- Try with different variations one shot, few shot examples in prompt
+- now lets calculate grade to evaluate the LLM
+- Here is the code
+
+```
+from promptflow import tool
+
+# The inputs section will change based on the arguments of the tool function, after you save the code
+# Adding type to arguments and return value will help the system show the types properly
+# Please update the function name/signature per need
+@tool
+def grade(groundtruth: str, prediction: str):
+    return "Correct" if groundtruth.lower() == prediction.lower() else "Incorrect"
+```
+
+- setup the inputs based on the below image
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/promptflowcog22.jpg "Architecture")
+
+- Now log the metric calculated
+- configure the inputs based on below image
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/promptflowcog23.jpg "Architecture")
+
+```
+from typing import List
+from promptflow import tool, log_metric
+
+# The inputs section will change based on the arguments of the tool function, after you save the code
+# Adding type to arguments and return value will help the system show the types properly
+# Please update the function name/signature per need
+@tool
+def calculate_accuracy(grades: str, variant_ids: List[str]):
+  aggregate_grades = []
+  accuracy = 0.07
+  aggregate_grades.append(accuracy)
+  #log_metric("accuracy", accuracy, variant_id=grades)
+
+  return aggregate_grades
+```
+
+- Now we are going to calculate accuracy based on creating embedding for groundtruth and prediction and either calculate cosine similarity or euclidean distance or just equate and check.
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/promptflowcog24.jpg "Architecture")
+
+- for above select the groundtruth and prediction from inputs
+- Now calulate the embedding for groundtruth and prediction
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/promptflowcog25.jpg "Architecture")
+
+
 - Try to chain the prompt and experiment
 - Now on the right top corner click on the run button
 - Wait for the run to complete
