@@ -1,4 +1,4 @@
-# Azure Machine learning Fine tuning LLama2 7b
+# Azure Machine learning Reinforcement learning PPO with GPT2 Pretrained model
 
 ## Introduction
 
