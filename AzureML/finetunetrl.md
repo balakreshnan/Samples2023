@@ -215,7 +215,7 @@ df_results = pd.DataFrame(game_data)
 df_results
 ```
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/tr1.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/trl1.jpg "Architecture")
 
 - Print Results
 
@@ -227,7 +227,7 @@ print("median:")
 display(df_results[["rewards (before)", "rewards (after)"]].median())
 ```
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/tr2.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/trl2.jpg "Architecture")
 
 - Save model
 
@@ -235,4 +235,4 @@ display(df_results[["rewards (before)", "rewards (after)"]].median())
 model.save_pretrained("gpt2-imdb-pos-v2")
 ```
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/tr3.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/trl3.jpg "Architecture")
