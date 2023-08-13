@@ -9,6 +9,7 @@
 - I had to request quota increase using Azure ML to achieve this experiment
 - Using meta's model and samples
 - Idea here is show how it can run in Azure Machine learning
+- Original code is from [here](https://github.com/facebookresearch/segment-anything/blob/main/notebooks/onnx_model_example.ipynb
 
 ## Code
 
