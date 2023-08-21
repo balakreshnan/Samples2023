@@ -46,7 +46,7 @@
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune3.jpg "Architecture")
 
-- Submit the job and will take about 4 to 5 hours to complete
+- Submit the job and will take about 10 to 11 hours to complete
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune5.jpg "Architecture")
 
