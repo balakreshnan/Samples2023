@@ -76,6 +76,9 @@
 ## Llama - emotion detection
 
 - Using VM SKU: Standard_NC96ads_A100_v4 (96 cores, 880 GB RAM, 256 GB disk)
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune15.jpg "Architecture")
+
 - From - https://github.com/balakreshnan/azureml-examples/blob/main/sdk/python/foundation-models/system/finetune/Llama-notebooks/text-classification/emotion-detection-llama.ipynb
 - This is a sample from Azure ML
 - Experiment took about hour and half to complete
