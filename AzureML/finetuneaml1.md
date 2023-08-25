@@ -83,5 +83,7 @@
 - This is a sample from Azure ML
 - Experiment took about hour and half to complete
 - Vm needed more storage to download the LLAMA model
+- i tried with 1 GPU and got disk space issue
+- Seems like it need minimum 4 A100 GPU to run this experiment
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune14.jpg "Architecture")
