@@ -53,3 +53,22 @@
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune8.jpg "Architecture")
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune9.jpg "Architecture")
+
+## Differenct GPU
+
+- This time i am using Standard_NC24ads_A100_v4 SKU
+- It has only 1 GPU
+- Same summarization job
+- Running time is 14 to 15 hours
+  
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune10.jpg "Architecture")
+
+- Metrics
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune11.jpg "Architecture")
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune12.jpg "Architecture")
+
+- VM Size
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune13.jpg "Architecture")
