@@ -54,7 +54,7 @@
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune9.jpg "Architecture")
 
-## Differenct GPU
+## Summarization - Differenct GPU
 
 - This time i am using Standard_NC24ads_A100_v4 SKU
 - It has only 1 GPU
@@ -87,3 +87,15 @@
 - Seems like it need minimum 4 A100 GPU to run this experiment
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune14.jpg "Architecture")
+
+## Sumamrization - T5-small - same as above comparison
+
+- Using VM SKU: Standard_NC96ads_A100_v4 (96 cores, 880 GB RAM, 256 GB disk)
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune17.jpg "Architecture")
+
+- Experiment took about 8 to 9 hours to complete
+- using 4 A100 GPU
+- Standard_NC96ads_A100_v4 (96 cores, 880 GB RAM, 256 GB disk)
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune16.jpg "Architecture")
