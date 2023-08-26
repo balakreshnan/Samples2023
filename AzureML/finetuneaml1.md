@@ -99,3 +99,11 @@
 - Standard_NC96ads_A100_v4 (96 cores, 880 GB RAM, 256 GB disk)
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune16.jpg "Architecture")
+
+- aggregate metrics
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune18.jpg "Architecture")
+
+- Metric score charts
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune19.jpg "Architecture")
