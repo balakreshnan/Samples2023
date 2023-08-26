@@ -88,6 +88,16 @@
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune14.jpg "Architecture")
 
+- Overall metrics
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune20.jpg "Architecture")
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune21.jpg "Architecture")
+
+- compute metrics
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/finetune22.jpg "Architecture")
+
 ## Sumamrization - T5-small - same as above comparison
 
 - Using VM SKU: Standard_NC96ads_A100_v4 (96 cores, 880 GB RAM, 256 GB disk)
