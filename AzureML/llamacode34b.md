@@ -17,7 +17,7 @@
 
 ```
 %pip install git+https://github.com/huggingface/transformers.git@main accelerate
-````
+```
 
 - restart the kernel
 - i choose python 3
@@ -42,6 +42,7 @@ pipeline = transformers.pipeline(
     torch_dtype=torch.float16,
     device_map="auto",
 )
+```
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/llama2code1.jpg "Architecture")
 
