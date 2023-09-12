@@ -8,13 +8,15 @@
 - Ask question to extract information from your own data
 - Create a word document with the RFP data
 - Refine and improve the questions or update the text and regenerate the document
+- Data used are sample profiles i took from publicly available linkedin profiles.
 
 ## Prerequisites
 
 - Azure Account
 - Power Apps Account
 - Power Flow HTTP connector
-- Azure Open AI service  
+- Azure Open AI service - GPT 4 Model 
+- Azure Cognitive Search - Semantic Search
 
 ## Power App UI
 
