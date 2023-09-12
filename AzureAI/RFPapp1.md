@@ -333,6 +333,8 @@ Set(summarytext6, PopulateWordrfp.Run(TextInput10.Text))
 - make sure all the text needed are saved in TextInput10.Text
 - Flow details for PopulateWordrfp
 
+## Power Flow
+
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/rfpapp1-23.jpg "Architecture")
 
 - Here is the flow
