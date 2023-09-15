@@ -11,7 +11,7 @@
 
 ## Architecture
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AOAI/images/arch1.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AOAI/images/arch2.jpg "Architecture")
 
 ## Architecture Explained
 
