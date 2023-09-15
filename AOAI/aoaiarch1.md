@@ -25,3 +25,6 @@
 - Create the application in the region where paired regions is available
 - Using Azure ML to create LLM Application using prompt flow
 - Deploy and manage custom LLM in managed endpoint
+- If one of the regions fails load balancer will route to another region for Azure Open AI
+- For Cognitive search, and AKS (front end application), we can use Paired regions and should switch automatically
+- 
