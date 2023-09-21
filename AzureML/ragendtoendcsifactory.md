@@ -728,3 +728,25 @@ display(Markdown(response['output_text']))
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/csif6.jpg "Architecture")
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/csif7.jpg "Architecture")
+
+## cont
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/csif8.jpg "Architecture")
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/csif9.jpg "Architecture")
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/csif10.jpg "Architecture")
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/csif11.jpg "Architecture")
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/csif12.jpg "Architecture")
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/csif13.jpg "Architecture")
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/csif14.jpg "Architecture")
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/csif15.jpg "Architecture")
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/csif16.jpg "Architecture")
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/csif17.jpg "Architecture")
