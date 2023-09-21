@@ -23,7 +23,7 @@
 
 ## Architecture
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/images/ragarchsimple1.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/ragarchsimple1.jpg "Architecture")
 
 ## Architecture Explained
 
