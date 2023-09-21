@@ -36,6 +36,7 @@
 - Right side is where users accessing the chatgpt application
 - Here is the front end UI web application - ![Url](https://github.com/balakreshnan/sample-app-aoai-chatGPT)
 
+## Creating Vector Index
 
 ## Code
 
@@ -707,3 +708,7 @@ response = chain({"input_documents": top_docs, "question": QUESTION, "language":
 ```
 display(Markdown(response['output_text']))
 ```
+
+## Conversational UI for Users
+
+- Here is the front end UI web application - ![Url](https://github.com/balakreshnan/sample-app-aoai-chatGPT)
