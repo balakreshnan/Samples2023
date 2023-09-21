@@ -21,6 +21,22 @@
 - All code can run in notebook using notebok
 - create a environment file and load all the keys
 
+## Architecture
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/images/ragarchsimple1.jpg "Architecture")
+
+## Architecture Explained
+
+- It's a 2 Step process
+- Step 1
+- First part is to process the documents and create vector index
+- Left part of the above architecture
+- Step 2
+- Now the consuming end is on the right side
+- Right side is where users accessing the chatgpt application
+- Here is the front end UI web application - ![Url](https://github.com/balakreshnan/sample-app-aoai-chatGPT)
+
+
 ## Code
 
 - Include libraries
