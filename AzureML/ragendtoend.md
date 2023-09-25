@@ -311,6 +311,7 @@ from azure.storage.blob import BlobClient, BlobServiceClient, ContainerClient
 from azure.storage.blob import ResourceTypes, AccountSasPermissions
 from azure.storage.blob import generate_account_sas    
 from datetime import *
+import shutil
 
 today = str(datetime.now().date())
 print(today)
@@ -343,6 +344,7 @@ for container in all_containers:
                 download_stream = blob_client.download_blob(max_concurrency=2)
                 destfile = os.path.join(r'/data/profiles', blob.name)
                 sample_blob.write(download_stream.readall())
+                shutil.move(blob.name, destfile)
                 #with open(destfile, "w") as file:
                 #    file.write(download_stream.readall())
                 #    file.close()
