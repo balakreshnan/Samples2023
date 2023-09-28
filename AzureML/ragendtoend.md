@@ -342,7 +342,7 @@ for container in all_containers:
             blob_client = client.get_blob_client(container=container['name'], blob=blob.name)
             with open(file=os.path.join(r'', blob.name), mode="wb+") as sample_blob:
                 download_stream = blob_client.download_blob(max_concurrency=2)
-                destfile = os.path.join(r'/data/profiles', blob.name)
+                destfile = os.path.join(r'data/profiles', blob.name)
                 sample_blob.write(download_stream.readall())
                 shutil.move(blob.name, destfile)
                 #with open(destfile, "w") as file:
