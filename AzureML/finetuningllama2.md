@@ -32,7 +32,7 @@
 
 ## LLama2 - 13 billion
 
-- Running sample for 7 billion model
+- Running sample for 13 billion model
 - using sample data set
 - using 2 A100 4 GPU computer
 - SKU used - STANDARD_NC96ADS_A100_V4
