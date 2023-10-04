@@ -48,3 +48,20 @@
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/llama2-6.jpg "Architecture")
 
 ## LLama2 - 70 billion
+
+- Running sample for 70 billion model
+- using sample data set
+- using 2 A100 4 GPU computer
+- SKU used - STANDARD_NC96ADS_A100_V4
+- Using batch size of 1
+- More than that will fail with out of memory error
+- 4 bit Quantization is enabled
+- data set is same for all the above experiments
+- NVme0 disk enables
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/llama2-7.jpg "Architecture")
+
+- GPU Metrics
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/llama2-8.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/Images/llama2-9.jpg "Architecture")
