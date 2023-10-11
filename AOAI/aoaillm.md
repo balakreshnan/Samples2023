@@ -10,6 +10,7 @@
 - Using App service for semantic kernel or web application
 - Using Azure Cognitive Search for Vector Index.
 - Implementing RAG - Retrieval Augumented Generation
+- Architecture is high level and not detailed
 
 ## Architecture
 
