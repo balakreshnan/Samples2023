@@ -34,7 +34,7 @@
 - then Initialize a variable
 - For the "Value" field of the variable, click "Ask in PowerApps" to autogenerate a variable named "initializevariable_Value".  
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/vxg-edits/AzureAI/images/chatpgp10.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/chatpgp10.jpg "Architecture")
 
 - After the auto-generation, your screen should look like this:
 
