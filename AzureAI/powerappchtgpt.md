@@ -23,7 +23,7 @@
 - On the left menu in power apps click on Power Automate
 - Click on Create New Flow
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/vxg-edits/AzureAI/images/chatpgp9.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/chatpgp9.jpg "Architecture")
 
 - Name it as chatgptprocessing
 - here is the entire flow
@@ -117,15 +117,15 @@ Collect(convlist, { role : "system", content: " I am a helpful assistant." });
 Set(outvar, "");
 ```
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/vxg-edits/AzureAI/images/chatpgp11.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/chatpgp11.jpg "Architecture")
 
 - Now in the power app click Insert to drag a "Text label" onto your canvas, and assign the value to the variable `outvar`
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/vxg-edits/AzureAI/images/chatpgp12.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/chatpgp12.jpg "Architecture")
 
 - Bring Text box and assign the value to inputvar
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/vxg-edits/AzureAI/images/chatpgp13.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/chatpgp13.jpg "Architecture")
 
 - Create a Send button to call the flow
 
@@ -140,7 +140,7 @@ Collect(convlist, { role : "assistant", content: outvar});
 - assing the value to `convlist`
 - Adjust the positioning of the gallery components as you'd like 
 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/vxg-edits/AzureAI/images/chatpgp14.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/chatpgp14.jpg "Architecture")
 
 - Now bring a create a clear button
 
@@ -166,4 +166,4 @@ Set(outvar, ThisItem.content)
 ```
 
 - Doing this will allow users to click on any of the arrows in the conversation list, and display that message on the right. 
-![Architecture](https://github.com/balakreshnan/Samples2023/blob/vxg-edits/AzureAI/images/chatpgp15.jpg "Architecture")
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/chatpgp15.jpg "Architecture")
