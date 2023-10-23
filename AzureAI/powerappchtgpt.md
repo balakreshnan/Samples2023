@@ -12,22 +12,19 @@
 
 ## Create a Power App
 
-- To create a power app first need to create a power flow
-- Flow is invoked by a powerapp trigger
-- Text information will be passed to the flow
-- on the default screen assign values to variables
+- First create a blank canvas app at https://make.preview.powerapps.com/
+- Then create the a power flow **inside of the canvas app(important!!)**
+- This flow will be invoked by a power app trigger, so that text input from users will be passed to the flow. 
 
-```
-Set(inputvar, "{ \""messages\"": [{ \""role\"": \""system\"", \""content\"": \""You are a helpful assistant.\"" }, { \""role\"": \""user\"", \""content \"": \""hi there\"" } ]}"); Collect(convlist, { role : "system", content: " You are a helpful assistant." }); Set(outvar, "");
-```
 
-## Power Flow
+## Create a Power Flow inside of the Power App
 
-- Let's create a power flow
-- On the left menu in power apps click on flows
-- https://make.preview.powerapps.com/
-- Click on flows
-- Click New Flow
+- Let's create a power flow **inside of the Power App**
+- On the left menu in power apps click on Power Automate
+- Click on Create New Flow
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/vxg-edits/AzureAI/images/chatpgp9.jpg "Architecture")
+
 - Name it as chatgptprocessing
 - here is the entire flow
 
@@ -35,6 +32,11 @@ Set(inputvar, "{ \""messages\"": [{ \""role\"": \""system\"", \""content\"": \""
 
 - First add trigger as Power Apps
 - then Initialize a variable
+- For the "Value" field of the variable, click "Ask in PowerApps" to autogenerate a variable named "initializevariable_Value".  
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/vxg-edits/AzureAI/images/chatpgp10.jpg "Architecture")
+
+- After the auto-generation, your screen should look like this:
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/chatpgp3.jpg "Architecture")
 
@@ -106,29 +108,39 @@ https://resourcename.openai.azure.com/openai/deployments/chatgpt/chat/completion
 - Save the flow
 - Move to power apps
 
-## Power Apps
+## Create the UI in the Power App
 
-- NOw in the power app drag a label and assign the value to the variable outvar
-- Now in the default screen assign values to variables
+- In your Power App interface, under the "Tree view", select "App" (instead of "Screen1"), go to "Advanced" tab on the right, under "OnStart", put the following code. Doing this will initial values to the variables `inputvar` and `outvar` when the app is started.   
+```
+Set(inputvar, "{ \""messages\"": [{ \""role\"": \""system\"", \""content\"": \""You are a helpful assistant.\"" }, { \""role\"": \""user\"", \""content \"": \""hi there\"" } ]}"); 
+Collect(convlist, { role : "system", content: " I am a helpful assistant." }); 
+Set(outvar, "");
+```
 
-```
-Set(inputvar, "{ \""messages\"": [{ \""role\"": \""system\"", \""content\"": \""You are a helpful assistant.\"" }, { \""role\"": \""user\"", \""content \"": \""hi there\"" } ]}"); Collect(convlist, { role : "system", content: " You are a helpful assistant." }); Set(outvar, "");
-```
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/vxg-edits/AzureAI/images/chatpgp11.jpg "Architecture")
+
+- Now in the power app click Insert to drag a "Text label" onto your canvas, and assign the value to the variable `outvar`
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/vxg-edits/AzureAI/images/chatpgp12.jpg "Architecture")
 
 - Bring Text box and assign the value to inputvar
-- Create a button to call the flow
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/vxg-edits/AzureAI/images/chatpgp13.jpg "Architecture")
+
+- Create a Send button to call the flow
 
 ```
-Collect(convlist, { role : "user", content: TextInput9.Text } );Set(outputvar, chatgptprocessing.Run(JSON(convlist)));Set(outvar, Text(ParseJSON(outputvar.output).choices.'0'.message.content));Collect(convlist, { role : "assistant", content: outvar});
+Collect(convlist, { role : "user", content: TextInput1.Text } );
+Set(outputvar, chatgptprocessing.Run(JSON(convlist)));
+Set(outvar, Text(ParseJSON(outputvar.output).choices.'0'.message.content));
+Collect(convlist, { role : "assistant", content: outvar});
 ```
 
-- Now create a gallery to show the conversation
-- drop the vertical gallery
-- assing the value to convlist
+- Now create a gallery to show the conversation by clicking Insert to drop a vertical gallery
+- assing the value to `convlist`
+- Adjust the positioning of the gallery components as you'd like 
 
-```
-convlist
-```
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/vxg-edits/AzureAI/images/chatpgp14.jpg "Architecture")
 
 - Now bring a create a clear button
 
@@ -139,3 +151,19 @@ Clear(convlist);Collect(convlist, { role : "system", content: " I am Chat bot - 
 - Now save and test the app
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AzureAI/images/chatpgp1.jpg "Architecture")
+
+
+## Additional features
+
+### To allow users to see previous messages in the conversation history
+
+- Select the arrow in the vertical gallery
+- Go to Advanced tab on the right
+- Under "OnSelect", put the following code:
+
+```
+Set(outvar, ThisItem.content)
+```
+
+- Doing this will allow users to click on any of the arrows in the conversation list, and display that message on the right. 
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/vxg-edits/AzureAI/images/chatpgp15.jpg "Architecture")
