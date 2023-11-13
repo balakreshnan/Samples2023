@@ -34,7 +34,8 @@
 - I am using Visual Studio Code
 - First create a python virtual environment with python 3.10 or more
 - Set the default AML workspace
-- Code is provided in this repo - 
+- Code is provided in this repo - https://github.com/balakreshnan/llmopspromptflow
+- Clone the repo and change based on your application
 - there should 3 folders one for standard flow, evaluate flow and then deploy.
 - in the profileindex3-sample-flow there is 2 new files created
   - run.yml
