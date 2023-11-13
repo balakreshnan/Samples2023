@@ -49,6 +49,25 @@
 pip install -r ./requirements.txt
 ```
 
+- Here is the run file
+
+```
+$schema: https://azuremlschemas.azureedge.net/promptflow/latest/Run.schema.json
+flow: .
+data: data.jsonl
+
+# define cloud resource
+runtime: automatic
+
+connections:
+  embed_the_question:
+    connection: aoainclat
+    deployment_name: text-embedding-ada-002
+  answer_the_question_with_context:
+    connection: aoainclat
+    deployment_name: gpt-35-turbo-16k
+```
+
 ```
 pfazure run create --file run.yml --resource-group rgname --workspace-name amlworkspace
 ```
@@ -63,6 +82,27 @@ pfazure run create --file run.yml --resource-group rgname --workspace-name amlwo
 - you will also see other details of the flow, which we don't need it at this time.
 - Copy the name value and paste it in the run_evaluation.yaml file in the runid node
 - for flow directory speficfy - ../profileindex3-sample-flow-QnA Relevance Evaluation-202311131325
+- here is the run evaluation file
+
+```
+$schema: https://azuremlschemas.azureedge.net/promptflow/latest/Run.schema.json
+flow: ../profileindex3-sample-flow-QnA Relevance Evaluation-202311131325
+data: ./data.jsonl
+run: profileindex3_sample_flow_variant_0_20231113_133240_846251 # replace with your run name
+column_mapping:
+  groundtruth: ${data.answer}
+  prediction: ${run.outputs.output}
+
+# define cloud resource
+runtime: automatic
+
+connections:
+  relevance_score:
+    connection: aoainclat
+    deployment_name: gpt-35-turbo-16k
+
+```
+
 - now run the evaluation
 
 ```
