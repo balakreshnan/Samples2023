@@ -14,8 +14,7 @@
 ## Pre-requisite
 
 - 1. Create a new LLM application using UI with your own data and will create a standard flow
-
-![PromptflowApp](https://github.com/balakreshnan/Samples2023/blob/main/AzureML/prompflow1.md "Architecture")
+    Click here - https://github.com/balakreshnan/Samples2023/blob/main/AzureML/prompflow1.md
 
 - 2. From the new Flow run evaluate the model (batch evaluate) and will create a evaluation flow
 - Follow the screen with new data sample provided in this code repo
