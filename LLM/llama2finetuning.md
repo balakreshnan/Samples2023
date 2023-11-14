@@ -358,3 +358,6 @@ pipeline_job = workspace_ml_client.jobs.create_or_update(
 # wait for the pipeline job to complete
 workspace_ml_client.jobs.stream(pipeline_job.name)
 ```
+
+- if it fails go to designer of the experiment and go next level graph clone and delete the validation step and save and submit again
+- for deep speed. there will be a separated JSON file with config provided.
