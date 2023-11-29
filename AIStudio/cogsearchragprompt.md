@@ -111,3 +111,10 @@
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AIStudio/images/cogsearchragprompt15.jpg "Architecture")
 
 - Now click Chat and you will be able to chat with the system
+- Sample outputs
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AIStudio/images/cogsearchragprompt16.jpg "Architecture")
+
+- Another sample
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AIStudio/images/cogsearchragprompt17.jpg "Architecture")
