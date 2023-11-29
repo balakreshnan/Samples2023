@@ -118,3 +118,59 @@
 - Another sample
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AIStudio/images/cogsearchragprompt17.jpg "Architecture")
+
+### Evaluate the application
+
+- Now we are going to evaluate the prompt flow application
+- Here we can change the prompts and then evaluate and validate the results
+- I am using the in built evaluation
+- IN your prompt flow on righ top next to chat button there is evaulate button click that.
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AIStudio/images/cogsearchragprompt18.jpg "Architecture")
+
+- Give a name for the evaluation
+- Select the prompt flow runtime to use
+- For this test select question and answer pair
+- In the next few sections we will see the data set needed
+  
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AIStudio/images/cogsearchragprompt19.jpg "Architecture")
+
+- Now select the flow application name to evaulate
+- Select the node : Prompt variants
+- Select the variants, this is nothing but different configutation for various models to use
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AIStudio/images/cogsearchragprompt20.jpg "Architecture")
+
+- Now select the available metrics to calculate
+- Groundness, Relevance, Coherence are the metric available
+- Select the model to use, in my case i am using gpt4
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AIStudio/images/cogsearchragprompt21.jpg "Architecture")
+
+- Next add dataset to validate against.
+- i am select uploading a local dataset
+- please check the schema because you need to provide new columns like question, chat_history, answer, context
+- Select Add new dataset, if you already have one use the one you have
+- This dataset should have ground truth as answer.
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AIStudio/images/cogsearchragprompt22.jpg "Architecture")
+
+- Upload the files and assign the corresponding columns
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AIStudio/images/cogsearchragprompt23.jpg "Architecture")
+
+- now check all the setting and click Submit
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AIStudio/images/cogsearchragprompt24.jpg "Architecture")
+
+- wait for the evaluation to complete
+- On the left menu go to Evaluation and you will see the evaluation you submitted
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AIStudio/images/cogsearchragprompt25.jpg "Architecture")
+
+- Check one of the evaluation and you will see the results
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/AIStudio/images/cogsearchragprompt26.jpg "Architecture")
+
+- Done.
+- Have fun creating new llm applications using prompt flow in AI Studio
