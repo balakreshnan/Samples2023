@@ -231,3 +231,40 @@ print(f'Found {len(response["data"])} fine-tune jobs.')
 ```
 
 ![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/ADB/Images/finetune4.jpg "Architecture")
+
+![Architecture](https://github.com/balakreshnan/Samples2023/blob/main/ADB/Images/finetune5.jpg "Architecture")
+
+- Output of the fine tuning job
+
+```
+#Retrieve fine_tuned_model name
+
+response = openai.FineTuningJob.retrieve(job_id)
+
+print(response)
+fine_tuned_model = response["fine_tuned_model"]
+```
+
+- Output
+
+```
+{
+  "hyperparameters": {
+    "n_epochs": 2
+  },
+  "status": "succeeded",
+  "model": "gpt-35-turbo-0613",
+  "fine_tuned_model": "gpt-35-turbo-0613.ft-xxxxxxxxxxxxxxxxxxxx",
+  "training_file": "file-xxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "validation_file": "file-xxxxxxxxxxxxxxxxxxxxxxxx",
+  "result_files": [
+    "file-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  ],
+  "finished_at": 1701960883,
+  "trained_tokens": 1336,
+  "id": "ftjob-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "created_at": 1701958237,
+  "updated_at": 1701960883,
+  "object": "fine_tuning.job"
+}
+```
